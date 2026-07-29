@@ -283,7 +283,7 @@
           <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2025</td><td><span class="player-name">Vince</span></td><td class="text-green">10-7</td><td class="text-muted" style="font-size:12px">Ja'Marr Chase</td></tr>
           <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2024</td><td><span class="player-name">Ben</span></td><td class="text-green">12-5</td><td class="text-muted" style="font-size:12px">Bijan Robinson</td></tr>
           <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2023</td><td><span class="player-name">Brian</span></td><td class="text-green">12-5</td><td class="text-muted" style="font-size:12px">Breece Hall</td></tr>
-          <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2022</td><td><span class="player-name">Bryce</span></td><td class="text-green">12-5</td><td class="text-muted" style="font-size:12px">CeeDee Lamb</td></tr>
+          <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2022</td><td><span class="player-name">Bryce</span></td><td class="text-green">11-6</td><td class="text-muted" style="font-size:12px">CeeDee Lamb</td></tr>
           <tr><td style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green)">2021</td><td><span class="player-name">Braden</span></td><td class="text-green">12-5</td><td class="text-muted" style="font-size:12px">Davante Adams</td></tr>
         </tbody>
       </table>
@@ -427,15 +427,15 @@ const PLAYER_COLORS = {
 const CHAMPIONS = {2021:'BRADEN',2022:'BRYCE',2023:'BRIAN',2024:'BEN',2025:'VINCE'};
 const RECORDS = {
   2021:{BRYCE:'7-7',BRADEN:'9-5',BEN:'5-9',BRIAN:'8-6',ETHAN:'3-11',JEREMY:'7-7',AARON:'10-4',NICK:'6-8',VINCE:'8-6',ZACH:'7-7'},
-  2022:{BRYCE:'9-5',BRADEN:'3-11',BEN:'1-13',BRIAN:'7-7',ETHAN:'5-9',JEREMY:'10-4',AARON:'6-8',NICK:'11-3',VINCE:'7-7',ZACH:'9-5'},
+  2022:{BRYCE:'8-6',BRADEN:'5-9',BEN:'3-11',BRIAN:'9-5',ETHAN:'6-8',JEREMY:'10-4',AARON:'5-9',NICK:'9-5',VINCE:'8-6',ZACH:'7-7'},
   2023:{BRYCE:'8-6',BRADEN:'4-10',BEN:'3-11',BRIAN:'9-5',ETHAN:'7-7',JEREMY:'4-10',AARON:'8-6',NICK:'9-5',VINCE:'6-8',ZACH:'12-2'},
   2024:{BRYCE:'9-5',BRADEN:'7-7',BEN:'9-5',BRIAN:'5-9',ETHAN:'11-3',JEREMY:'6-8',AARON:'8-6',NICK:'4-10',VINCE:'7-7',ZACH:'4-10'},
   2025:{BRYCE:'9-5',BRADEN:'7-7',BEN:'8-6',BRIAN:'6-8',ETHAN:'10-4',JEREMY:'7-7',AARON:'5-9',NICK:'8-6',VINCE:'7-7',ZACH:'3-11'},
 };
 const PTS_FOR = {
-  2021:{BRYCE:1755.6,BRADEN:1988.54,BEN:1832.2,BRIAN:1772.21,ETHAN:1514.45,JEREMY:1738.84,AARON:2084.24,NICK:1681.88,VINCE:1738.84,ZACH:1783.31},
-  2022:{BRYCE:2024.2,BRADEN:1708.1,BEN:1550.74,BRIAN:1802.07,ETHAN:1708.14,JEREMY:2022.1,AARON:1718.14,NICK:1944.78,VINCE:1787.63,ZACH:1608.42},
-  2023:{BRYCE:1774.04,BRADEN:1601.94,BEN:1813.37,BRIAN:1851.49,ETHAN:1654.52,JEREMY:1678.65,AARON:1777.21,NICK:1865.57,VINCE:1804.6,ZACH:2073.78},
+  2021:{BRYCE:1755.60,BRADEN:1988.54,BEN:1832.20,BRIAN:1772.21,ETHAN:1514.45,JEREMY:1738.84,AARON:2084.24,NICK:1681.88,VINCE:1738.84,ZACH:1783.31},
+  2022:{BRYCE:2024.20,BRADEN:1708.10,BEN:1550.74,BRIAN:1802.07,ETHAN:1708.14,JEREMY:2022.10,AARON:1718.14,NICK:1944.78,VINCE:1787.63,ZACH:1608.42},
+  2023:{BRYCE:1774.04,BRADEN:1601.94,BEN:1813.37,BRIAN:1851.49,ETHAN:1654.52,JEREMY:1678.65,AARON:1777.21,NICK:1865.57,VINCE:1804.60,ZACH:2073.78},
   2024:{BRYCE:2125.76,BRADEN:2103.99,BEN:1946.34,BRIAN:1998.88,ETHAN:2230.12,JEREMY:1826.83,AARON:2022.34,NICK:1788.74,VINCE:1937.61,ZACH:1748.43},
   2025:{BRYCE:2127.55,BRADEN:1802.76,BEN:1975.93,BRIAN:1778.71,ETHAN:2210.96,JEREMY:1970.07,AARON:1641.02,NICK:1915.15,VINCE:1823.88,ZACH:1918.17},
 };
@@ -455,7 +455,7 @@ const BEST_PLAYER = {
 };
 const PLAYOFF_RECORDS = {
   2021:{BRYCE:'0-1',BRADEN:'3-0',BEN:'0-0',BRIAN:'0-1',ETHAN:'0-0',JEREMY:'0-0',AARON:'1-1',NICK:'0-0',VINCE:'1-1',ZACH:'0-1'},
-  2022:{BRYCE:'3-0',BRADEN:'0-0',BEN:'0-0',BRIAN:'0-1',ETHAN:'0-0',JEREMY:'0-1',AARON:'0-0',NICK:'0-1',VINCE:'0-1',ZACH:'0-1'},
+  2022:{BRYCE:'3-0',BRADEN:'0-0',BEN:'0-0',BRIAN:'0-1',ETHAN:'0-0',JEREMY:'0-1',AARON:'0-0',NICK:'1-1',VINCE:'0-1',ZACH:'1-1'},
   2023:{BRYCE:'0-1',BRADEN:'0-0',BEN:'0-0',BRIAN:'3-0',ETHAN:'0-1',JEREMY:'0-0',AARON:'2-1',NICK:'0-1',VINCE:'0-0',ZACH:'0-1'},
   2024:{BRYCE:'0-1',BRADEN:'0-1',BEN:'3-0',BRIAN:'0-0',ETHAN:'1-1',JEREMY:'0-0',AARON:'1-1',NICK:'0-0',VINCE:'0-1',ZACH:'0-0'},
   2025:{BRYCE:'0-1',BRADEN:'0-0',BEN:'0-1',BRIAN:'0-0',ETHAN:'0-1',JEREMY:'2-1',AARON:'0-0',NICK:'0-1',VINCE:'3-0',ZACH:'0-0'},
@@ -758,9 +758,9 @@ function buildRecords(){
   rsRecs.sort((a,b)=>b.pct-a.pct);
 
   const PTS_AGAINST = {
-    2021:{BRYCE:1714.65,BRADEN:1899.5,BEN:1815.65,BRIAN:1760.81,ETHAN:1931.53,JEREMY:1823.86,AARON:1714.76,NICK:1778.47,VINCE:1862.69,ZACH:1831.17},
-    2022:{BRYCE:1855.03,BRADEN:1843.16,BEN:1841.42,BRIAN:1637.14,ETHAN:1725.5,JEREMY:1731.65,AARON:1890.02,NICK:1722.5,VINCE:1785.07,ZACH:1843.1},
-    2023:{BRYCE:1757.81,BRADEN:1879.0,BEN:1934.56,BRIAN:1753.58,ETHAN:1700.06,JEREMY:1877.33,AARON:1765.67,NICK:1788.94,VINCE:1775.8,ZACH:1662.42},
+    2021:{BRYCE:1714.65,BRADEN:1899.50,BEN:1815.65,BRIAN:1760.81,ETHAN:1931.53,JEREMY:1823.86,AARON:1714.76,NICK:1778.47,VINCE:1862.69,ZACH:1831.17},
+    2022:{BRYCE:1855.03,BRADEN:1843.16,BEN:1841.42,BRIAN:1637.14,ETHAN:1725.50,JEREMY:1731.65,AARON:1890.02,NICK:1722.50,VINCE:1785.07,ZACH:1843.10},
+    2023:{BRYCE:1757.81,BRADEN:1879.00,BEN:1934.56,BRIAN:1753.58,ETHAN:1700.06,JEREMY:1877.33,AARON:1765.67,NICK:1788.94,VINCE:1775.80,ZACH:1662.42},
     2024:{BRYCE:1872.53,BRADEN:1962.73,BEN:1862.02,BRIAN:1958.23,ETHAN:1940.72,JEREMY:2023.63,AARON:1994.58,NICK:2120.94,VINCE:1863.12,ZACH:2040.54},
     2025:{BRYCE:1878.46,BRADEN:1929.94,BEN:1786.18,BRIAN:1840.57,ETHAN:1945.02,JEREMY:1873.92,AARON:1954.31,NICK:1874.13,VINCE:1929.02,ZACH:2152.65},
   };
