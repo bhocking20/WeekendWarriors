@@ -215,6 +215,15 @@
     #section-home > div[style*="minmax(200px"] { grid-template-columns: 1fr !important; }
   }
 
+
+  /* Draft board cells */
+  #section-draft td[id^="pick"]:hover { filter: brightness(1.15); }
+  #section-draft td[id^="pick"] .pick-cell-wrap { min-height:44px; }
+
+  .rtab { font-family:'Inter',sans-serif;font-size:13px;padding:7px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all 0.15s;font-weight:500; }
+  .rtab:hover { border-color:var(--green);color:var(--green); }
+  .rtab.active { background:var(--green);border-color:var(--green);color:#000;font-weight:700; }
+
   /* Footer */
   footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 13px; color: var(--text3); }
 </style>
@@ -231,6 +240,7 @@
       <button class="nav-link" onclick="showSection('players')">Managers</button>
       <button class="nav-link" onclick="showSection('records')">Records</button>
       <button class="nav-link" onclick="showSection('h2h')">Head-to-Head</button>
+      <button class="nav-link" onclick="showSection('draft')">2026 Draft</button>
     </div>
   </div>
 </nav>
@@ -241,9 +251,10 @@
   <p class="hero-sub">Est. 2021 &nbsp;·&nbsp; 10 Managers &nbsp;·&nbsp; 5 Seasons of Glory & Heartbreak</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Seasons</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">350</div><div class="hero-stat-label">Games Played</div></div>
     <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Champions</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">47,163</div><div class="hero-stat-label">Total Pts Scored</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" style="font-size:28px;letter-spacing:1px">Vince</div><div class="hero-stat-label">Reigning Champ 🏆</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" id="draft-countdown" style="font-size:28px;letter-spacing:1px">--</div><div class="hero-stat-label">Days to Draft</div></div>
+  </div>
   </div>
 </div>
 
@@ -413,6 +424,640 @@
   </div>
 
   <div id="h2h-matrix" style="overflow-x:auto;-webkit-overflow-scrolling:touch;"></div>
+</div>
+
+
+<!-- DRAFT SECTION -->
+<div id="section-draft" class="section">
+  <div class="section-title">2026 Draft Board</div>
+  <p class="section-sub">Snake draft · 17 rounds · August 22nd at the Lakehouse</p>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,0.3);">
+    <table style="min-width:980px;border-collapse:collapse;width:100%;table-layout:fixed;">
+      <thead>
+        <tr>
+          <th style="background:#0d1117;padding:12px 14px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);border-bottom:2px solid var(--green);white-space:nowrap;width:52px;">Round</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#06b6d4;border-bottom:2px solid #06b6d4;white-space:nowrap;letter-spacing:.5px">Jeremy</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#ec4899;border-bottom:2px solid #ec4899;white-space:nowrap;letter-spacing:.5px">Hoff</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#3b82f6;border-bottom:2px solid #3b82f6;white-space:nowrap;letter-spacing:.5px">Braden</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#8b5cf6;border-bottom:2px solid #8b5cf6;white-space:nowrap;letter-spacing:.5px">Brian</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#84cc16;border-bottom:2px solid #84cc16;white-space:nowrap;letter-spacing:.5px">Vince</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#a78bfa;border-bottom:2px solid #a78bfa;white-space:nowrap;letter-spacing:.5px">Zach</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#ef4444;border-bottom:2px solid #ef4444;white-space:nowrap;letter-spacing:.5px">Ethan</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#22c55e;border-bottom:2px solid #22c55e;white-space:nowrap;letter-spacing:.5px">Bryce</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#f59e0b;border-bottom:2px solid #f59e0b;white-space:nowrap;letter-spacing:.5px">Ben</th>
+          <th style="background:#0d1117;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:#f97316;border-bottom:2px solid #f97316;white-space:nowrap;letter-spacing:.5px">Aaron</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R1</td>
+          
+          <td id="pick-1-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-1-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R2</td>
+          
+          <td id="pick-2-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-2-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R3</td>
+          
+          <td id="pick-3-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-3-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R4</td>
+          
+          <td id="pick-4-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-4-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R5</td>
+          
+          <td id="pick-5-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-5-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R6</td>
+          
+          <td id="pick-6-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-6-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R7</td>
+          
+          <td id="pick-7-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-7-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R8</td>
+          
+          <td id="pick-8-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-8-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R9</td>
+          
+          <td id="pick-9-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-9-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R10</td>
+          
+          <td id="pick-10-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-10-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R11</td>
+          
+          <td id="pick-11-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-11-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R12</td>
+          
+          <td id="pick-12-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-12-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R13</td>
+          
+          <td id="pick-13-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-13-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R14</td>
+          
+          <td id="pick-14-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-14-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R15</td>
+          
+          <td id="pick-15-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-15-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R16</td>
+          
+          <td id="pick-16-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-16-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#0d1117;padding:10px 12px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--green);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);white-space:nowrap;">R17</td>
+          
+          <td id="pick-17-1" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-2" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-3" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-4" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-5" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-6" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-7" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-8" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-9" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+          <td id="pick-17-10" onclick="togglePick(this)" style="padding:6px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);border-right:1px solid rgba(255,255,255,0.04);cursor:pointer;min-width:95px;transition:all 0.15s;vertical-align:top;">
+            <div class="pick-cell-wrap"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div style="margin-top:40px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;margin-bottom:4px;color:var(--text)">2026 Draft Rankings</div>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:20px">PPR · 10-team · Source: ESPN Draft Kit, updated Aug 9 2026</p>
+
+    <!-- Tab bar -->
+    <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:20px;" id="rankings-tabs">
+      <button class="rtab active" onclick="showRankings('overall',this)">Overall</button>
+      <button class="rtab" onclick="showRankings('qb',this)">QB</button>
+      <button class="rtab" onclick="showRankings('rb',this)">RB</button>
+      <button class="rtab" onclick="showRankings('wr',this)">WR</button>
+      <button class="rtab" onclick="showRankings('te',this)">TE</button>
+      <button class="rtab" onclick="showRankings('dst',this)">D/ST</button>
+      <button class="rtab" onclick="showRankings('k',this)">K</button>
+    </div>
+
+    <div id="rankings-table" style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--border);"></div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+    <div style="font-size:13px;color:var(--text2)">Click any cell to enter a player pick.</div>
+    <button onclick="clearDraft()" style="font-family:'Inter',sans-serif;font-size:12px;padding:6px 16px;border-radius:6px;border:1px solid rgba(239,68,68,0.4);background:rgba(239,68,68,0.1);color:var(--red);cursor:pointer;">Clear All</button>
+    <button onclick="exportDraft()" style="font-family:'Inter',sans-serif;font-size:12px;padding:6px 16px;border-radius:6px;border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.1);color:var(--green);cursor:pointer;">📋 Export Text</button>
+    <button onclick="exportExcel()" style="font-family:'Inter',sans-serif;font-size:12px;padding:6px 16px;border-radius:6px;border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.1);color:var(--green);cursor:pointer;">📊 Download Excel</button>
+    <button onclick="exportPDF()" style="font-family:'Inter',sans-serif;font-size:12px;padding:6px 16px;border-radius:6px;border:1px solid rgba(245,158,11,0.4);background:rgba(245,158,11,0.1);color:#f59e0b;cursor:pointer;">📄 Download PDF</button>
+  </div>
+  <div id="draft-export-out" style="display:none;margin-top:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:12px;color:var(--text2);white-space:pre;overflow-x:auto;"></div>
 </div>
 
 <footer>Weekend Warriors Fantasy Football &nbsp;·&nbsp; Est. 2021 &nbsp;·&nbsp; 10 Managers</footer>
@@ -781,7 +1426,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.pts.toFixed(1),
-    val_style: 'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px'
   })));
 
   // 2. Best RS records
@@ -789,7 +1434,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.w+'-'+r.l,
-    val_style: 'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px'
   })));
 
   // 3. Worst RS records
@@ -798,7 +1443,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.w+'-'+r.l,
-    val_style: 'font-weight:700;color:var(--red);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--red);font-size:18px;letter-spacing:1px'
   })));
 
   // 4. Lowest single-season points
@@ -807,7 +1452,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.pts.toFixed(1),
-    val_style: 'font-weight:700;color:var(--red);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--red);font-size:18px;letter-spacing:1px'
   })));
 
   // 5. Championship count
@@ -816,14 +1461,14 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p),
     val: '🏆'.repeat(r.c)+' '+r.c,
-    val_style: 'font-weight:700;color:var(--gold);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--gold);font-size:18px;letter-spacing:1px'
   }));
   recordCard('🏆 Championship Count', champRows);
 
   // 6. All-time win %
   recordCard('📊 All-Time Win Percentage', sortedByPct.slice(0,5).map((p,i)=>{
     const s=getStats(p);
-    return {label_color:col(p),label:name(p),val:(s.pct*100).toFixed(1)+'%',val_style:'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'};
+    return {label_color:col(p),label:name(p),val:(s.pct*100).toFixed(1)+'%',val_style:'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px'};
   }));
 
   // 7. Most points scored against
@@ -834,7 +1479,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.pa.toFixed(1),
-    val_style: 'font-weight:700;color:var(--red);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--red);font-size:18px;letter-spacing:1px'
   })));
 
   // 8. Fewest points scored against
@@ -843,7 +1488,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.pa.toFixed(1),
-    val_style: 'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px'
   })));
 
   // 9. Most playoff appearances
@@ -854,11 +1499,11 @@ function buildRecords(){
     }).length;
   });
   const sortedPlayoffs=[...PLAYERS].sort((a,b)=>playoffApps[b]-playoffApps[a]);
-  recordCard('🎯 Most Playoff Appearances', sortedPlayoffs.slice(0,5).map((p,i)=>({
+  recordCard('🎯 Most Playoff Appearances', sortedPlayoffs.map((p,i)=>({
     label_color: col(p),
     label: name(p),
     val: playoffApps[p]+' / 5',
-    val_style: 'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: playoffApps[p]>0 ? 'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px' : 'font-weight:700;color:var(--text3);font-size:18px;letter-spacing:1px'
   })));
 
   // 10. Highest pts, missed playoffs
@@ -872,7 +1517,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.pts.toFixed(1),
-    val_style: 'font-weight:700;color:var(--gold);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--gold);font-size:18px;letter-spacing:1px'
   })));
 
   // 11. Most dominant H2H rivalry
@@ -890,7 +1535,7 @@ function buildRecords(){
       +'<span style="font-weight:600"><span style="color:'+col(r.p)+'">'+name(r.p)+'</span>'
       +' <span style="color:var(--text3);font-size:11px">vs</span> '
       +'<span style="color:'+col(r.q)+'">'+name(r.q)+'</span></span>'
-      +'<span style="font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px">'+r.w+'-'+r.l+'</span>'
+      +'<span style="font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px">'+r.w+'-'+r.l+'</span>'
       +'</div>';
   });
   grid.innerHTML+=bully_html+'</div>';
@@ -906,7 +1551,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: '+'+r.diff.toFixed(1),
-    val_style: 'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--green);font-size:18px;letter-spacing:1px'
   })));
 
   // 13. Worst points differential
@@ -915,7 +1560,7 @@ function buildRecords(){
     label_color: col(r.p),
     label: name(r.p)+' \''+String(r.yr).slice(2),
     val: r.diff.toFixed(1),
-    val_style: 'font-weight:700;color:var(--red);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'
+    val_style: 'font-weight:700;color:var(--red);font-size:18px;letter-spacing:1px'
   })));
 
   // 14. Most last-place finishes
@@ -927,7 +1572,7 @@ function buildRecords(){
     last_html+='<div class="record-item">'
       +'<span class="record-rank">'+(i+1)+'</span>'
       +'<span style="color:'+col(p)+';font-weight:600">'+name(p)+'</span>'
-      +'<span style="font-weight:700;color:var(--red);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px">'+lastPlace[p]+'x</span>'
+      +'<span style="font-weight:700;color:var(--red);font-size:18px;letter-spacing:1px">'+lastPlace[p]+'x</span>'
       +'</div>';
   });
   sortedLast.filter(p=>lastPlace[p]===0).forEach(p=>{
@@ -945,10 +1590,17 @@ function buildRecords(){
     const bf=[2021,2022,2023,2024,2025].reduce((s,yr)=>s+PLACES[yr][b],0)/5;
     return af-bf;
   });
-  recordCard('🏅 Best Average Finish', avgFinish.slice(0,5).map((p,i)=>{
+  let avg_html='<div class="record-card"><div class="record-card-title">🏅 Best Average Finish</div>';
+  avgFinish.forEach((p,i)=>{
     const avg=([2021,2022,2023,2024,2025].reduce((s,yr)=>s+PLACES[yr][p],0)/5).toFixed(1);
-    return {label_color:col(p),label:name(p),val:avg,val_style:'font-weight:700;color:var(--green);font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:1px'};
-  }));
+    const valCol = i<3 ? 'var(--green)' : i>6 ? 'var(--red)' : 'var(--text2)';
+    avg_html+='<div class="record-item">'
+      +'<span class="record-rank">'+(i+1)+'</span>'
+      +'<span style="color:'+col(p)+';font-weight:600">'+name(p)+'</span>'
+      +'<span style="font-weight:700;color:'+valCol+';font-size:18px;letter-spacing:1px">'+avg+'</span>'
+      +'</div>';
+  });
+  grid.innerHTML+=avg_html+'</div>';
 }
 
 function showSection(id){
@@ -1083,6 +1735,452 @@ function renderH2H(){
 }
 
 
+
+
+// ═══════════════════════════════════════════════════════════
+// 2026 DRAFT + RANKINGS  (all in one block, correct order)
+// ═══════════════════════════════════════════════════════════
+
+// ── Data ────────────────────────────────────────────────────
+const DRAFT_MANAGERS = ['Jeremy','Hoff','Braden','Brian','Vince','Zach','Ethan','Bryce','Ben','Aaron'];
+const DRAFT_ROUNDS   = 17;
+const POS_COLOR      = {QB:'#3b82f6',RB:'#22c55e',WR:'#f59e0b',TE:'#8b5cf6',DST:'#ef4444',K:'#9ca3af'};
+
+const RANKINGS = {
+  overall: [{"rank": 1, "player": "Jahmyr Gibbs", "pos": "RB", "pos_rank": 1, "team": "DET"}, {"rank": 2, "player": "Bijan Robinson", "pos": "RB", "pos_rank": 2, "team": "ATL"}, {"rank": 3, "player": "Puka Nacua", "pos": "WR", "pos_rank": 1, "team": "LAR"}, {"rank": 4, "player": "Ja'Marr Chase", "pos": "WR", "pos_rank": 2, "team": "CIN"}, {"rank": 5, "player": "Jaxon Smith-Njigba", "pos": "WR", "pos_rank": 3, "team": "SEA"}, {"rank": 6, "player": "Christian McCaffrey", "pos": "RB", "pos_rank": 3, "team": "SF"}, {"rank": 7, "player": "Jonathan Taylor", "pos": "RB", "pos_rank": 4, "team": "IND"}, {"rank": 8, "player": "Amon-Ra St. Brown", "pos": "WR", "pos_rank": 4, "team": "DET"}, {"rank": 9, "player": "CeeDee Lamb", "pos": "WR", "pos_rank": 5, "team": "DAL"}, {"rank": 10, "player": "De'Von Achane", "pos": "RB", "pos_rank": 5, "team": "MIA"}, {"rank": 11, "player": "Justin Jefferson", "pos": "WR", "pos_rank": 6, "team": "MIN"}, {"rank": 12, "player": "James Cook III", "pos": "RB", "pos_rank": 6, "team": "BUF"}, {"rank": 13, "player": "Jeremiyah Love", "pos": "RB", "pos_rank": 7, "team": "ARI"}, {"rank": 14, "player": "Drake London", "pos": "WR", "pos_rank": 7, "team": "ATL"}, {"rank": 15, "player": "Ashton Jeanty", "pos": "RB", "pos_rank": 8, "team": "LV"}, {"rank": 16, "player": "Rashee Rice", "pos": "WR", "pos_rank": 8, "team": "KC"}, {"rank": 17, "player": "Trey McBride", "pos": "TE", "pos_rank": 1, "team": "ARI"}, {"rank": 18, "player": "Omarion Hampton", "pos": "RB", "pos_rank": 9, "team": "LAC"}, {"rank": 19, "player": "Saquon Barkley", "pos": "RB", "pos_rank": 10, "team": "PHI"}, {"rank": 20, "player": "Derrick Henry", "pos": "RB", "pos_rank": 11, "team": "BAL"}, {"rank": 21, "player": "Chase Brown", "pos": "RB", "pos_rank": 12, "team": "CIN"}, {"rank": 22, "player": "Kenneth Walker III", "pos": "RB", "pos_rank": 13, "team": "KC"}, {"rank": 23, "player": "Josh Jacobs", "pos": "RB", "pos_rank": 14, "team": "GB"}, {"rank": 24, "player": "Brock Bowers", "pos": "TE", "pos_rank": 2, "team": "LV"}, {"rank": 25, "player": "Nico Collins", "pos": "WR", "pos_rank": 9, "team": "HOU"}, {"rank": 26, "player": "Garrett Wilson", "pos": "WR", "pos_rank": 10, "team": "NYJ"}, {"rank": 27, "player": "A.J. Brown", "pos": "WR", "pos_rank": 11, "team": "NE"}, {"rank": 28, "player": "Chris Olave", "pos": "WR", "pos_rank": 12, "team": "NO"}, {"rank": 29, "player": "George Pickens", "pos": "WR", "pos_rank": 13, "team": "DAL"}, {"rank": 30, "player": "Breece Hall", "pos": "RB", "pos_rank": 15, "team": "NYJ"}, {"rank": 31, "player": "Javonte Williams", "pos": "RB", "pos_rank": 16, "team": "DAL"}, {"rank": 32, "player": "Malik Nabers", "pos": "WR", "pos_rank": 14, "team": "NYG"}, {"rank": 33, "player": "Tetairoa McMillan", "pos": "WR", "pos_rank": 15, "team": "CAR"}, {"rank": 34, "player": "Zay Flowers", "pos": "WR", "pos_rank": 16, "team": "BAL"}, {"rank": 35, "player": "DeVonta Smith", "pos": "WR", "pos_rank": 17, "team": "PHI"}, {"rank": 36, "player": "Josh Allen", "pos": "QB", "pos_rank": 1, "team": "BUF"}, {"rank": 37, "player": "Kyren Williams", "pos": "RB", "pos_rank": 17, "team": "LAR"}, {"rank": 38, "player": "Travis Etienne Jr.", "pos": "RB", "pos_rank": 18, "team": "NO"}, {"rank": 39, "player": "Cam Skattebo", "pos": "RB", "pos_rank": 19, "team": "NYG"}, {"rank": 40, "player": "Quinshon Judkins", "pos": "RB", "pos_rank": 20, "team": "CLE"}, {"rank": 41, "player": "Bucky Irving", "pos": "RB", "pos_rank": 21, "team": "TB"}, {"rank": 42, "player": "Emeka Egbuka", "pos": "WR", "pos_rank": 18, "team": "TB"}, {"rank": 43, "player": "Davante Adams", "pos": "WR", "pos_rank": 19, "team": "LAR"}, {"rank": 44, "player": "Ladd McConkey", "pos": "WR", "pos_rank": 20, "team": "LAC"}, {"rank": 45, "player": "Terry McLaurin", "pos": "WR", "pos_rank": 21, "team": "WAS"}, {"rank": 46, "player": "Tee Higgins", "pos": "WR", "pos_rank": 22, "team": "CIN"}, {"rank": 47, "player": "Jaylen Waddle", "pos": "WR", "pos_rank": 23, "team": "DEN"}, {"rank": 48, "player": "Jameson Williams", "pos": "WR", "pos_rank": 24, "team": "DET"}, {"rank": 49, "player": "Colston Loveland", "pos": "TE", "pos_rank": 3, "team": "CHI"}, {"rank": 50, "player": "Tyler Warren", "pos": "TE", "pos_rank": 4, "team": "IND"}, {"rank": 51, "player": "Carnell Tate", "pos": "WR", "pos_rank": 25, "team": "TEN"}, {"rank": 52, "player": "Rome Odunze", "pos": "WR", "pos_rank": 26, "team": "CHI"}, {"rank": 53, "player": "Luther Burden III", "pos": "WR", "pos_rank": 27, "team": "CHI"}, {"rank": 54, "player": "DJ Moore", "pos": "WR", "pos_rank": 28, "team": "BUF"}, {"rank": 55, "player": "Jayden Daniels", "pos": "QB", "pos_rank": 2, "team": "WAS"}, {"rank": 56, "player": "Lamar Jackson", "pos": "QB", "pos_rank": 3, "team": "BAL"}, {"rank": 57, "player": "Drake Maye", "pos": "QB", "pos_rank": 4, "team": "NE"}, {"rank": 58, "player": "Jalen Hurts", "pos": "QB", "pos_rank": 5, "team": "PHI"}, {"rank": 59, "player": "TreVeyon Henderson", "pos": "RB", "pos_rank": 22, "team": "NE"}, {"rank": 60, "player": "Bhayshul Tuten", "pos": "RB", "pos_rank": 23, "team": "JAC"}, {"rank": 61, "player": "D'Andre Swift", "pos": "RB", "pos_rank": 24, "team": "CHI"}, {"rank": 62, "player": "David Montgomery", "pos": "RB", "pos_rank": 25, "team": "HOU"}, {"rank": 63, "player": "Jadarian Price", "pos": "RB", "pos_rank": 26, "team": "SEA"}, {"rank": 64, "player": "Tony Pollard", "pos": "RB", "pos_rank": 27, "team": "TEN"}, {"rank": 65, "player": "Courtland Sutton", "pos": "WR", "pos_rank": 29, "team": "DEN"}, {"rank": 66, "player": "Michael Pittman Jr.", "pos": "WR", "pos_rank": 30, "team": "PIT"}, {"rank": 67, "player": "Alec Pierce", "pos": "WR", "pos_rank": 31, "team": "IND"}, {"rank": 68, "player": "Marvin Harrison Jr.", "pos": "WR", "pos_rank": 32, "team": "ARI"}, {"rank": 69, "player": "DK Metcalf", "pos": "WR", "pos_rank": 33, "team": "PIT"}, {"rank": 70, "player": "Jordyn Tyson", "pos": "WR", "pos_rank": 34, "team": "NO"}, {"rank": 71, "player": "Kyle Pitts Sr.", "pos": "TE", "pos_rank": 5, "team": "ATL"}, {"rank": 72, "player": "Harold Fannin Jr.", "pos": "TE", "pos_rank": 6, "team": "CLE"}, {"rank": 73, "player": "Sam LaPorta", "pos": "TE", "pos_rank": 7, "team": "DET"}, {"rank": 74, "player": "Joe Burrow", "pos": "QB", "pos_rank": 6, "team": "CIN"}, {"rank": 75, "player": "Jaxson Dart", "pos": "QB", "pos_rank": 7, "team": "NYG"}, {"rank": 76, "player": "Mike Evans", "pos": "WR", "pos_rank": 35, "team": "SF"}, {"rank": 77, "player": "Parker Washington", "pos": "WR", "pos_rank": 36, "team": "JAC"}, {"rank": 78, "player": "Christian Watson", "pos": "WR", "pos_rank": 37, "team": "GB"}, {"rank": 79, "player": "Matthew Golden", "pos": "WR", "pos_rank": 38, "team": "GB"}, {"rank": 80, "player": "Michael Wilson", "pos": "WR", "pos_rank": 39, "team": "ARI"}, {"rank": 81, "player": "Brian Thomas Jr.", "pos": "WR", "pos_rank": 40, "team": "JAC"}, {"rank": 82, "player": "Trevor Lawrence", "pos": "QB", "pos_rank": 8, "team": "JAC"}, {"rank": 83, "player": "Dak Prescott", "pos": "QB", "pos_rank": 9, "team": "DAL"}, {"rank": 84, "player": "Bo Nix", "pos": "QB", "pos_rank": 10, "team": "DEN"}, {"rank": 85, "player": "Brock Purdy", "pos": "QB", "pos_rank": 11, "team": "SF"}, {"rank": 86, "player": "Matthew Stafford", "pos": "QB", "pos_rank": 12, "team": "LAR"}, {"rank": 87, "player": "Caleb Williams", "pos": "QB", "pos_rank": 13, "team": "CHI"}, {"rank": 88, "player": "Jakobi Meyers", "pos": "WR", "pos_rank": 41, "team": "JAC"}, {"rank": 89, "player": "Wan'Dale Robinson", "pos": "WR", "pos_rank": 42, "team": "TEN"}, {"rank": 90, "player": "Makai Lemon", "pos": "WR", "pos_rank": 43, "team": "PHI"}, {"rank": 91, "player": "Josh Downs", "pos": "WR", "pos_rank": 44, "team": "IND"}, {"rank": 92, "player": "Jordan Addison", "pos": "WR", "pos_rank": 45, "team": "MIN"}, {"rank": 93, "player": "Justin Herbert", "pos": "QB", "pos_rank": 14, "team": "LAC"}, {"rank": 94, "player": "Patrick Mahomes", "pos": "QB", "pos_rank": 15, "team": "KC"}, {"rank": 95, "player": "Jaylen Warren", "pos": "RB", "pos_rank": 28, "team": "PIT"}, {"rank": 96, "player": "Rhamondre Stevenson", "pos": "RB", "pos_rank": 29, "team": "NE"}, {"rank": 97, "player": "Rico Dowdle", "pos": "RB", "pos_rank": 30, "team": "PIT"}, {"rank": 98, "player": "Kenny Gainwell", "pos": "RB", "pos_rank": 31, "team": "TB"}, {"rank": 99, "player": "Chuba Hubbard", "pos": "RB", "pos_rank": 32, "team": "CAR"}, {"rank": 100, "player": "Aaron Jones Sr.", "pos": "RB", "pos_rank": 33, "team": "MIN"}, {"rank": 101, "player": "George Kittle", "pos": "TE", "pos_rank": 8, "team": "SF"}, {"rank": 102, "player": "Tucker Kraft", "pos": "TE", "pos_rank": 9, "team": "GB"}, {"rank": 103, "player": "Dallas Goedert", "pos": "TE", "pos_rank": 10, "team": "PHI"}, {"rank": 104, "player": "Travis Kelce", "pos": "TE", "pos_rank": 11, "team": "KC"}, {"rank": 105, "player": "Rachaad White", "pos": "RB", "pos_rank": 34, "team": "WAS"}, {"rank": 106, "player": "Jonathon Brooks", "pos": "RB", "pos_rank": 35, "team": "CAR"}, {"rank": 107, "player": "J.K. Dobbins", "pos": "RB", "pos_rank": 36, "team": "DEN"}, {"rank": 108, "player": "RJ Harvey", "pos": "RB", "pos_rank": 37, "team": "DEN"}, {"rank": 109, "player": "Jake Ferguson", "pos": "TE", "pos_rank": 12, "team": "DAL"}, {"rank": 110, "player": "Mark Andrews", "pos": "TE", "pos_rank": 13, "team": "BAL"}, {"rank": 111, "player": "T.J. Hockenson", "pos": "TE", "pos_rank": 14, "team": "MIN"}, {"rank": 112, "player": "Khalil Shakir", "pos": "WR", "pos_rank": 46, "team": "BUF"}, {"rank": 113, "player": "Jayden Reed", "pos": "WR", "pos_rank": 47, "team": "GB"}, {"rank": 114, "player": "Xavier Worthy", "pos": "WR", "pos_rank": 48, "team": "KC"}, {"rank": 115, "player": "Kyle Monangai", "pos": "RB", "pos_rank": 38, "team": "CHI"}, {"rank": 116, "player": "Kenyon Sadiq", "pos": "TE", "pos_rank": 15, "team": "NYJ"}, {"rank": 117, "player": "Isaiah Likely", "pos": "TE", "pos_rank": 16, "team": "NYG"}, {"rank": 118, "player": "Dalton Kincaid", "pos": "TE", "pos_rank": 17, "team": "BUF"}, {"rank": 119, "player": "Hunter Henry", "pos": "TE", "pos_rank": 18, "team": "NE"}, {"rank": 120, "player": "Jacory Croskey-Merritt", "pos": "RB", "pos_rank": 39, "team": "WAS"}, {"rank": 121, "player": "Blake Corum", "pos": "RB", "pos_rank": 40, "team": "LAR"}, {"rank": 122, "player": "Woody Marks", "pos": "RB", "pos_rank": 41, "team": "HOU"}, {"rank": 123, "player": "Zach Charbonnet", "pos": "RB", "pos_rank": 42, "team": "SEA"}, {"rank": 124, "player": "Quentin Johnston", "pos": "WR", "pos_rank": 49, "team": "LAC"}, {"rank": 125, "player": "KC Concepcion", "pos": "WR", "pos_rank": 50, "team": "CLE"}, {"rank": 126, "player": "Deebo Samuel Sr.", "pos": "WR", "pos_rank": 51, "team": "SF"}, {"rank": 127, "player": "Stefon Diggs", "pos": "WR", "pos_rank": 52, "team": "WAS"}, {"rank": 128, "player": "Chris Godwin Jr.", "pos": "WR", "pos_rank": 53, "team": "TB"}, {"rank": 129, "player": "Romeo Doubs", "pos": "WR", "pos_rank": 54, "team": "NE"}, {"rank": 130, "player": "Jayden Higgins", "pos": "WR", "pos_rank": 55, "team": "HOU"}, {"rank": 131, "player": "Jalen Coker", "pos": "WR", "pos_rank": 56, "team": "CAR"}, {"rank": 132, "player": "Jerry Jeudy", "pos": "WR", "pos_rank": 57, "team": "CLE"}, {"rank": 133, "player": "Kyler Murray", "pos": "QB", "pos_rank": 16, "team": "MIN"}, {"rank": 134, "player": "Tyler Shough", "pos": "QB", "pos_rank": 17, "team": "NO"}, {"rank": 135, "player": "Jared Goff", "pos": "QB", "pos_rank": 18, "team": "DET"}, {"rank": 136, "player": "Daniel Jones", "pos": "QB", "pos_rank": 19, "team": "IND"}, {"rank": 137, "player": "Jordan Mason", "pos": "RB", "pos_rank": 43, "team": "MIN"}, {"rank": 138, "player": "Alvin Kamara", "pos": "RB", "pos_rank": 44, "team": "NO"}, {"rank": 139, "player": "Isiah Pacheco", "pos": "RB", "pos_rank": 45, "team": "DET"}, {"rank": 140, "player": "Chris Rodriguez Jr.", "pos": "RB", "pos_rank": 46, "team": "JAC"}, {"rank": 141, "player": "Brian Robinson Jr.", "pos": "RB", "pos_rank": 47, "team": "ATL"}, {"rank": 142, "player": "Tank Bigsby", "pos": "RB", "pos_rank": 48, "team": "PHI"}, {"rank": 143, "player": "Rashid Shaheed", "pos": "WR", "pos_rank": 58, "team": "SEA"}, {"rank": 144, "player": "Jalen McMillan", "pos": "WR", "pos_rank": 59, "team": "TB"}, {"rank": 145, "player": "Calvin Ridley", "pos": "WR", "pos_rank": 60, "team": "TEN"}, {"rank": 146, "player": "Denzel Boston", "pos": "WR", "pos_rank": 61, "team": "CLE"}, {"rank": 147, "player": "Travis Hunter", "pos": "WR", "pos_rank": 62, "team": "JAC"}, {"rank": 148, "player": "Adonai Mitchell", "pos": "WR", "pos_rank": 63, "team": "NYJ"}, {"rank": 149, "player": "Baker Mayfield", "pos": "QB", "pos_rank": 20, "team": "TB"}, {"rank": 150, "player": "Malik Willis", "pos": "QB", "pos_rank": 21, "team": "MIA"}, {"rank": 151, "player": "De'Zhaun Stribling", "pos": "WR", "pos_rank": 64, "team": "SF"}, {"rank": 152, "player": "Germie Bernard", "pos": "WR", "pos_rank": 65, "team": "PIT"}, {"rank": 153, "player": "Tre Tucker", "pos": "WR", "pos_rank": 66, "team": "LV"}, {"rank": 154, "player": "Ray Davis", "pos": "RB", "pos_rank": 49, "team": "BUF"}, {"rank": 155, "player": "Tyrone Tracy Jr.", "pos": "RB", "pos_rank": 50, "team": "NYG"}, {"rank": 156, "player": "Mike Washington Jr.", "pos": "RB", "pos_rank": 51, "team": "LV"}, {"rank": 157, "player": "Tyler Allgeier", "pos": "RB", "pos_rank": 52, "team": "ARI"}, {"rank": 158, "player": "Dylan Sampson", "pos": "RB", "pos_rank": 53, "team": "CLE"}, {"rank": 159, "player": "Terrance Ferguson", "pos": "TE", "pos_rank": 19, "team": "LAR"}, {"rank": 160, "player": "Juwan Johnson", "pos": "TE", "pos_rank": 20, "team": "NO"}, {"rank": 161, "player": "Jalen Nailor", "pos": "WR", "pos_rank": 67, "team": "LV"}, {"rank": 162, "player": "Omar Cooper Jr.", "pos": "WR", "pos_rank": 68, "team": "NYJ"}, {"rank": 163, "player": "Rashod Bateman", "pos": "WR", "pos_rank": 69, "team": "BAL"}, {"rank": 164, "player": "Jauan Jennings", "pos": "WR", "pos_rank": 70, "team": "MIN"}, {"rank": 165, "player": "Tank Dell", "pos": "WR", "pos_rank": 71, "team": "HOU"}, {"rank": 166, "player": "Tyjae Spears", "pos": "RB", "pos_rank": 54, "team": "TEN"}, {"rank": 167, "player": "Braelon Allen", "pos": "RB", "pos_rank": 55, "team": "NYJ"}, {"rank": 168, "player": "Keaton Mitchell", "pos": "RB", "pos_rank": 56, "team": "LAC"}, {"rank": 169, "player": "Broncos D/ST", "pos": "DST", "pos_rank": 1, "team": "DEN"}, {"rank": 170, "player": "Texans D/ST", "pos": "DST", "pos_rank": 2, "team": "HOU"}, {"rank": 171, "player": "Steelers D/ST", "pos": "DST", "pos_rank": 3, "team": "PIT"}, {"rank": 172, "player": "Seahawks D/ST", "pos": "DST", "pos_rank": 4, "team": "SEA"}, {"rank": 173, "player": "Rams D/ST", "pos": "DST", "pos_rank": 5, "team": "LAR"}, {"rank": 174, "player": "Ravens D/ST", "pos": "DST", "pos_rank": 6, "team": "BAL"}, {"rank": 175, "player": "Eagles D/ST", "pos": "DST", "pos_rank": 7, "team": "PHI"}, {"rank": 176, "player": "Browns D/ST", "pos": "DST", "pos_rank": 8, "team": "CLE"}, {"rank": 177, "player": "Patriots D/ST", "pos": "DST", "pos_rank": 9, "team": "NE"}, {"rank": 178, "player": "Lions D/ST", "pos": "DST", "pos_rank": 10, "team": "DET"}, {"rank": 179, "player": "Chiefs D/ST", "pos": "DST", "pos_rank": 11, "team": "KC"}, {"rank": 180, "player": "Chargers D/ST", "pos": "DST", "pos_rank": 12, "team": "LAC"}, {"rank": 181, "player": "Brandon Aubrey", "pos": "K", "pos_rank": 1, "team": "DAL"}, {"rank": 182, "player": "Cameron Dicker", "pos": "K", "pos_rank": 2, "team": "LAC"}, {"rank": 183, "player": "Jason Myers", "pos": "K", "pos_rank": 3, "team": "SEA"}, {"rank": 184, "player": "Harrison Mevis", "pos": "K", "pos_rank": 4, "team": "LAR"}, {"rank": 185, "player": "Ka'imi Fairbairn", "pos": "K", "pos_rank": 5, "team": "HOU"}, {"rank": 186, "player": "Eddy Pineiro", "pos": "K", "pos_rank": 6, "team": "SF"}, {"rank": 187, "player": "Harrison Butker", "pos": "K", "pos_rank": 7, "team": "KC"}, {"rank": 188, "player": "Cam Little", "pos": "K", "pos_rank": 8, "team": "JAC"}, {"rank": 189, "player": "Jake Bates", "pos": "K", "pos_rank": 9, "team": "DET"}, {"rank": 190, "player": "Tyler Loop", "pos": "K", "pos_rank": 10, "team": "BAL"}, {"rank": 191, "player": "Cairo Santos", "pos": "K", "pos_rank": 11, "team": "CHI"}, {"rank": 192, "player": "Will Reichard", "pos": "K", "pos_rank": 12, "team": "MIN"}, {"rank": 193, "player": "Jordan James", "pos": "RB", "pos_rank": 57, "team": "SF"}, {"rank": 194, "player": "Brenton Strange", "pos": "TE", "pos_rank": 21, "team": "JAC"}, {"rank": 195, "player": "James Conner", "pos": "RB", "pos_rank": 58, "team": "ARI"}, {"rank": 196, "player": "Justice Hill", "pos": "RB", "pos_rank": 59, "team": "BAL"}, {"rank": 197, "player": "Zachariah Branch", "pos": "WR", "pos_rank": 72, "team": "ATL"}, {"rank": 198, "player": "Jordan Love", "pos": "QB", "pos_rank": 22, "team": "GB"}, {"rank": 199, "player": "Cam Ward", "pos": "QB", "pos_rank": 23, "team": "TEN"}, {"rank": 200, "player": "C.J. Stroud", "pos": "QB", "pos_rank": 24, "team": "HOU"}, {"rank": 201, "player": "Darnell Mooney", "pos": "WR", "pos_rank": 73, "team": "NYG"}, {"rank": 202, "player": "Tre Harris", "pos": "WR", "pos_rank": 74, "team": "LAC"}, {"rank": 203, "player": "Ryan Flournoy", "pos": "WR", "pos_rank": 75, "team": "DAL"}, {"rank": 204, "player": "Antonio Williams", "pos": "WR", "pos_rank": 76, "team": "WAS"}, {"rank": 205, "player": "Jaylin Noel", "pos": "WR", "pos_rank": 77, "team": "HOU"}, {"rank": 206, "player": "Pat Freiermuth", "pos": "TE", "pos_rank": 22, "team": "PIT"}, {"rank": 207, "player": "Dalton Schultz", "pos": "TE", "pos_rank": 23, "team": "HOU"}, {"rank": 208, "player": "Xavier Legette", "pos": "WR", "pos_rank": 78, "team": "CAR"}, {"rank": 209, "player": "Jack Bech", "pos": "WR", "pos_rank": 79, "team": "LV"}, {"rank": 210, "player": "Isaac TeSlaa", "pos": "WR", "pos_rank": 80, "team": "DET"}, {"rank": 211, "player": "Chris Bell", "pos": "WR", "pos_rank": 81, "team": "MIA"}, {"rank": 212, "player": "Jonah Coleman", "pos": "RB", "pos_rank": 60, "team": "DEN"}, {"rank": 213, "player": "Kaelon Black", "pos": "RB", "pos_rank": 61, "team": "SF"}, {"rank": 214, "player": "Kaytron Allen", "pos": "RB", "pos_rank": 62, "team": "WAS"}, {"rank": 215, "player": "Gunnar Helm", "pos": "TE", "pos_rank": 24, "team": "TEN"}, {"rank": 216, "player": "Chig Okonkwo", "pos": "TE", "pos_rank": 25, "team": "WAS"}, {"rank": 217, "player": "AJ Barner", "pos": "TE", "pos_rank": 26, "team": "SEA"}, {"rank": 218, "player": "Sam Darnold", "pos": "QB", "pos_rank": 25, "team": "SEA"}, {"rank": 219, "player": "Bryce Young", "pos": "QB", "pos_rank": 26, "team": "CAR"}, {"rank": 220, "player": "Fernando Mendoza", "pos": "QB", "pos_rank": 27, "team": "LV"}, {"rank": 221, "player": "Nicholas Singleton", "pos": "RB", "pos_rank": 63, "team": "TEN"}, {"rank": 222, "player": "Demond Claiborne", "pos": "RB", "pos_rank": 64, "team": "MIN"}, {"rank": 223, "player": "Kimani Vidal", "pos": "RB", "pos_rank": 65, "team": "LAC"}, {"rank": 224, "player": "Malik Washington", "pos": "WR", "pos_rank": 82, "team": "MIA"}, {"rank": 225, "player": "Jaylen Wright", "pos": "RB", "pos_rank": 66, "team": "MIA"}, {"rank": 226, "player": "Ollie Gordon II", "pos": "RB", "pos_rank": 67, "team": "MIA"}, {"rank": 227, "player": "Jalen Tolbert", "pos": "WR", "pos_rank": 83, "team": "MIA"}, {"rank": 228, "player": "Cooper Kupp", "pos": "WR", "pos_rank": 84, "team": "SEA"}, {"rank": 229, "player": "Caleb Douglas", "pos": "WR", "pos_rank": 85, "team": "MIA"}, {"rank": 230, "player": "Kayshon Boutte", "pos": "WR", "pos_rank": 86, "team": "NE"}, {"rank": 231, "player": "Brandon Aiyuk", "pos": "WR", "pos_rank": 87, "team": "SF"}, {"rank": 232, "player": "Ja'Kobi Lane", "pos": "WR", "pos_rank": 88, "team": "BAL"}, {"rank": 233, "player": "Ted Hurst", "pos": "WR", "pos_rank": 89, "team": "TB"}, {"rank": 234, "player": "Keon Coleman", "pos": "WR", "pos_rank": 90, "team": "BUF"}, {"rank": 235, "player": "Buccaneers D/ST", "pos": "DST", "pos_rank": 13, "team": "TB"}, {"rank": 236, "player": "Packers D/ST", "pos": "DST", "pos_rank": 14, "team": "GB"}, {"rank": 237, "player": "Chris Boswell", "pos": "K", "pos_rank": 13, "team": "PIT"}, {"rank": 238, "player": "Chase McLaughlin", "pos": "K", "pos_rank": 14, "team": "TB"}, {"rank": 239, "player": "Adam Randall", "pos": "RB", "pos_rank": 68, "team": "BAL"}, {"rank": 240, "player": "Samaje Perine", "pos": "RB", "pos_rank": 69, "team": "CIN"}, {"rank": 241, "player": "LeQuint Allen", "pos": "RB", "pos_rank": 70, "team": "JAC"}, {"rank": 242, "player": "MarShawn Lloyd", "pos": "RB", "pos_rank": 71, "team": "GB"}, {"rank": 243, "player": "Jaydon Blue", "pos": "RB", "pos_rank": 72, "team": "DAL"}, {"rank": 244, "player": "George Holani", "pos": "RB", "pos_rank": 73, "team": "SEA"}, {"rank": 245, "player": "Ty Johnson", "pos": "RB", "pos_rank": 74, "team": "BUF"}, {"rank": 246, "player": "Emari Demercado", "pos": "RB", "pos_rank": 75, "team": "KC"}, {"rank": 247, "player": "Isaiah Davis", "pos": "RB", "pos_rank": 76, "team": "NYJ"}, {"rank": 248, "player": "Emmett Johnson", "pos": "RB", "pos_rank": 77, "team": "KC"}, {"rank": 249, "player": "Chris Brooks", "pos": "RB", "pos_rank": 78, "team": "GB"}, {"rank": 250, "player": "Sean Tucker", "pos": "RB", "pos_rank": 79, "team": "TB"}, {"rank": 251, "player": "DJ Giddens", "pos": "RB", "pos_rank": 80, "team": "IND"}, {"rank": 254, "player": "Jaguars D/ST", "pos": "DST", "pos_rank": 15, "team": "JAC"}, {"rank": 256, "player": "Evan McPherson", "pos": "K", "pos_rank": 15, "team": "CIN"}, {"rank": 258, "player": "Oronde Gadsden", "pos": "TE", "pos_rank": 27, "team": "LAC"}, {"rank": 259, "player": "Greg Dulcich", "pos": "TE", "pos_rank": 28, "team": "MIA"}, {"rank": 260, "player": "Cade Otton", "pos": "TE", "pos_rank": 29, "team": "TB"}, {"rank": 265, "player": "Malik Davis", "pos": "RB", "pos_rank": 81, "team": "DAL"}, {"rank": 266, "player": "Emanuel Wilson", "pos": "RB", "pos_rank": 82, "team": "SEA"}, {"rank": 267, "player": "Geno Smith", "pos": "QB", "pos_rank": 28, "team": "NYJ"}, {"rank": 268, "player": "Aaron Rodgers", "pos": "QB", "pos_rank": 29, "team": "PIT"}, {"rank": 269, "player": "Jacoby Brissett", "pos": "QB", "pos_rank": 30, "team": "ARI"}, {"rank": 270, "player": "Deshaun Watson", "pos": "QB", "pos_rank": 31, "team": "CLE"}, {"rank": 276, "player": "Will Shipley", "pos": "RB", "pos_rank": 83, "team": "PHI"}, {"rank": 277, "player": "Devin Singletary", "pos": "RB", "pos_rank": 84, "team": "NYG"}, {"rank": 278, "player": "Tyler Badie", "pos": "RB", "pos_rank": 85, "team": "DEN"}, {"rank": 289, "player": "Mike Gesicki", "pos": "TE", "pos_rank": 30, "team": "CIN"}, {"rank": 290, "player": "Evan Engram", "pos": "TE", "pos_rank": 31, "team": "DEN"}, {"rank": 291, "player": "David Njoku", "pos": "TE", "pos_rank": 32, "team": "LAC"}, {"rank": 292, "player": "Michael Mayer", "pos": "TE", "pos_rank": 33, "team": "LV"}, {"rank": 293, "player": "Jake Tonges", "pos": "TE", "pos_rank": 34, "team": "SF"}, {"rank": 296, "player": "Tua Tagovailoa", "pos": "QB", "pos_rank": 32, "team": "ATL"}, {"rank": 301, "player": "Shedeur Sanders", "pos": "QB", "pos_rank": 33, "team": "CLE"}, {"rank": 302, "player": "Kirk Cousins", "pos": "QB", "pos_rank": 34, "team": "LV"}, {"rank": 310, "player": "Michael Penix Jr.", "pos": "QB", "pos_rank": 35, "team": "ATL"}, {"rank": 311, "player": "Ja'Tavion Sanders", "pos": "TE", "pos_rank": 35, "team": "CAR"}, {"rank": 315, "player": "J.J. McCarthy", "pos": "QB", "pos_rank": 36, "team": "MIN"}, {"rank": 316, "player": "Carson Beck", "pos": "QB", "pos_rank": 37, "team": "ARI"}, {"rank": 317, "player": "Justin Fields", "pos": "QB", "pos_rank": 38, "team": "KC"}, {"rank": 318, "player": "Joe Flacco", "pos": "QB", "pos_rank": 39, "team": "CIN"}, {"rank": 319, "player": "Mac Jones", "pos": "QB", "pos_rank": 40, "team": "SF"}],
+  qb:  [{"pr": 1, "or": 36, "player": "Josh Allen", "team": "BUF", "sal": 22}, {"pr": 2, "or": 55, "player": "Jayden Daniels", "team": "WAS", "sal": 10}, {"pr": 3, "or": 56, "player": "Lamar Jackson", "team": "BAL", "sal": 10}, {"pr": 4, "or": 57, "player": "Drake Maye", "team": "NE", "sal": 10}, {"pr": 5, "or": 58, "player": "Jalen Hurts", "team": "PHI", "sal": 9}, {"pr": 6, "or": 74, "player": "Joe Burrow", "team": "CIN", "sal": 5}, {"pr": 7, "or": 75, "player": "Jaxson Dart", "team": "NYG", "sal": 5}, {"pr": 8, "or": 82, "player": "Trevor Lawrence", "team": "JAC", "sal": 4}, {"pr": 9, "or": 83, "player": "Dak Prescott", "team": "DAL", "sal": 4}, {"pr": 10, "or": 84, "player": "Bo Nix", "team": "DEN", "sal": 4}, {"pr": 11, "or": 85, "player": "Brock Purdy", "team": "SF", "sal": 4}, {"pr": 12, "or": 86, "player": "Matthew Stafford", "team": "LAR", "sal": 4}, {"pr": 13, "or": 87, "player": "Caleb Williams", "team": "CHI", "sal": 3}, {"pr": 14, "or": 93, "player": "Justin Herbert", "team": "LAC", "sal": 3}, {"pr": 15, "or": 94, "player": "Patrick Mahomes", "team": "KC", "sal": 3}, {"pr": 16, "or": 133, "player": "Kyler Murray", "team": "MIN", "sal": 1}, {"pr": 17, "or": 134, "player": "Tyler Shough", "team": "NO", "sal": 1}, {"pr": 18, "or": 135, "player": "Jared Goff", "team": "DET", "sal": 1}, {"pr": 19, "or": 136, "player": "Daniel Jones", "team": "IND", "sal": 1}, {"pr": 20, "or": 149, "player": "Baker Mayfield", "team": "TB", "sal": 1}, {"pr": 21, "or": 150, "player": "Malik Willis", "team": "MIA", "sal": 1}, {"pr": 22, "or": 198, "player": "Jordan Love", "team": "GB", "sal": 0}, {"pr": 23, "or": 199, "player": "Cam Ward", "team": "TEN", "sal": 0}, {"pr": 24, "or": 200, "player": "C.J. Stroud", "team": "HOU", "sal": 0}, {"pr": 25, "or": 218, "player": "Sam Darnold", "team": "SEA", "sal": 0}, {"pr": 26, "or": 219, "player": "Bryce Young", "team": "CAR", "sal": 0}, {"pr": 27, "or": 220, "player": "Fernando Mendoza", "team": "LV", "sal": 0}, {"pr": 28, "or": 267, "player": "Geno Smith", "team": "NYJ", "sal": 0}, {"pr": 29, "or": 268, "player": "Aaron Rodgers", "team": "PIT", "sal": 0}, {"pr": 30, "or": 269, "player": "Jacoby Brissett", "team": "ARI", "sal": 0}, {"pr": 31, "or": 270, "player": "Deshaun Watson", "team": "CLE", "sal": 0}, {"pr": 32, "or": 296, "player": "Tua Tagovailoa", "team": "ATL", "sal": 0}, {"pr": 33, "or": 301, "player": "Shedeur Sanders", "team": "CLE", "sal": 0}, {"pr": 34, "or": 302, "player": "Kirk Cousins", "team": "LV", "sal": 0}, {"pr": 35, "or": 310, "player": "Michael Penix Jr.", "team": "ATL", "sal": 0}, {"pr": 36, "or": 315, "player": "J.J. McCarthy", "team": "MIN", "sal": 0}, {"pr": 37, "or": 316, "player": "Carson Beck", "team": "ARI", "sal": 0}, {"pr": 38, "or": 317, "player": "Justin Fields", "team": "KC", "sal": 0}, {"pr": 39, "or": 318, "player": "Joe Flacco", "team": "CIN", "sal": 0}, {"pr": 40, "or": 319, "player": "Mac Jones", "team": "SF", "sal": 0}],
+  rb:  [{"pr": 1, "or": 1, "player": "Jahmyr Gibbs", "team": "DET", "sal": 57}, {"pr": 2, "or": 2, "player": "Bijan Robinson", "team": "ATL", "sal": 56}, {"pr": 3, "or": 6, "player": "Christian McCaffrey", "team": "SF", "sal": 53}, {"pr": 4, "or": 7, "player": "Jonathan Taylor", "team": "IND", "sal": 52}, {"pr": 5, "or": 10, "player": "De'Von Achane", "team": "MIA", "sal": 50}, {"pr": 6, "or": 12, "player": "James Cook III", "team": "BUF", "sal": 46}, {"pr": 7, "or": 13, "player": "Jeremiyah Love", "team": "ARI", "sal": 45}, {"pr": 8, "or": 15, "player": "Ashton Jeanty", "team": "LV", "sal": 42}, {"pr": 9, "or": 18, "player": "Omarion Hampton", "team": "LAC", "sal": 37}, {"pr": 10, "or": 19, "player": "Saquon Barkley", "team": "PHI", "sal": 36}, {"pr": 11, "or": 20, "player": "Derrick Henry", "team": "BAL", "sal": 35}, {"pr": 12, "or": 21, "player": "Chase Brown", "team": "CIN", "sal": 34}, {"pr": 13, "or": 22, "player": "Kenneth Walker III", "team": "KC", "sal": 33}, {"pr": 14, "or": 23, "player": "Josh Jacobs", "team": "GB", "sal": 32}, {"pr": 15, "or": 30, "player": "Breece Hall", "team": "NYJ", "sal": 27}, {"pr": 16, "or": 31, "player": "Javonte Williams", "team": "DAL", "sal": 26}, {"pr": 17, "or": 37, "player": "Kyren Williams", "team": "LAR", "sal": 22}, {"pr": 18, "or": 38, "player": "Travis Etienne Jr.", "team": "NO", "sal": 21}, {"pr": 19, "or": 39, "player": "Cam Skattebo", "team": "NYG", "sal": 21}, {"pr": 20, "or": 40, "player": "Quinshon Judkins", "team": "CLE", "sal": 20}, {"pr": 21, "or": 41, "player": "Bucky Irving", "team": "TB", "sal": 19}, {"pr": 22, "or": 59, "player": "TreVeyon Henderson", "team": "NE", "sal": 9}, {"pr": 23, "or": 60, "player": "Bhayshul Tuten", "team": "JAC", "sal": 9}, {"pr": 24, "or": 61, "player": "D'Andre Swift", "team": "CHI", "sal": 8}, {"pr": 25, "or": 62, "player": "David Montgomery", "team": "HOU", "sal": 8}, {"pr": 26, "or": 63, "player": "Jadarian Price", "team": "SEA", "sal": 8}, {"pr": 27, "or": 64, "player": "Tony Pollard", "team": "TEN", "sal": 7}, {"pr": 28, "or": 95, "player": "Jaylen Warren", "team": "PIT", "sal": 3}, {"pr": 29, "or": 96, "player": "Rhamondre Stevenson", "team": "NE", "sal": 2}, {"pr": 30, "or": 97, "player": "Rico Dowdle", "team": "PIT", "sal": 2}, {"pr": 31, "or": 98, "player": "Kenny Gainwell", "team": "TB", "sal": 2}, {"pr": 32, "or": 99, "player": "Chuba Hubbard", "team": "CAR", "sal": 2}, {"pr": 33, "or": 100, "player": "Aaron Jones Sr.", "team": "MIN", "sal": 2}, {"pr": 34, "or": 105, "player": "Rachaad White", "team": "WAS", "sal": 2}, {"pr": 35, "or": 106, "player": "Jonathon Brooks", "team": "CAR", "sal": 2}, {"pr": 36, "or": 107, "player": "J.K. Dobbins", "team": "DEN", "sal": 2}, {"pr": 37, "or": 108, "player": "RJ Harvey", "team": "DEN", "sal": 2}, {"pr": 38, "or": 115, "player": "Kyle Monangai", "team": "CHI", "sal": 2}, {"pr": 39, "or": 120, "player": "Jacory Croskey-Merritt", "team": "WAS", "sal": 2}, {"pr": 40, "or": 121, "player": "Blake Corum", "team": "LAR", "sal": 1}, {"pr": 41, "or": 122, "player": "Woody Marks", "team": "HOU", "sal": 1}, {"pr": 42, "or": 123, "player": "Zach Charbonnet", "team": "SEA", "sal": 1}, {"pr": 43, "or": 137, "player": "Jordan Mason", "team": "MIN", "sal": 1}, {"pr": 44, "or": 138, "player": "Alvin Kamara", "team": "NO", "sal": 1}, {"pr": 45, "or": 139, "player": "Isiah Pacheco", "team": "DET", "sal": 1}, {"pr": 46, "or": 140, "player": "Chris Rodriguez Jr.", "team": "JAC", "sal": 1}, {"pr": 47, "or": 141, "player": "Brian Robinson Jr.", "team": "ATL", "sal": 1}, {"pr": 48, "or": 142, "player": "Tank Bigsby", "team": "PHI", "sal": 1}, {"pr": 49, "or": 154, "player": "Ray Davis", "team": "BUF", "sal": 1}, {"pr": 50, "or": 155, "player": "Tyrone Tracy Jr.", "team": "NYG", "sal": 1}, {"pr": 51, "or": 156, "player": "Mike Washington Jr.", "team": "LV", "sal": 1}, {"pr": 52, "or": 157, "player": "Tyler Allgeier", "team": "ARI", "sal": 1}, {"pr": 53, "or": 158, "player": "Dylan Sampson", "team": "CLE", "sal": 1}, {"pr": 54, "or": 166, "player": "Tyjae Spears", "team": "TEN", "sal": 0}, {"pr": 55, "or": 167, "player": "Braelon Allen", "team": "NYJ", "sal": 0}, {"pr": 56, "or": 168, "player": "Keaton Mitchell", "team": "LAC", "sal": 0}, {"pr": 57, "or": 193, "player": "Jordan James", "team": "SF", "sal": 0}, {"pr": 58, "or": 195, "player": "James Conner", "team": "ARI", "sal": 0}, {"pr": 59, "or": 196, "player": "Justice Hill", "team": "BAL", "sal": 0}, {"pr": 60, "or": 212, "player": "Jonah Coleman", "team": "DEN", "sal": 0}, {"pr": 61, "or": 213, "player": "Kaelon Black", "team": "SF", "sal": 0}, {"pr": 62, "or": 214, "player": "Kaytron Allen", "team": "WAS", "sal": 0}, {"pr": 63, "or": 221, "player": "Nicholas Singleton", "team": "TEN", "sal": 0}, {"pr": 64, "or": 222, "player": "Demond Claiborne", "team": "MIN", "sal": 0}, {"pr": 65, "or": 223, "player": "Kimani Vidal", "team": "LAC", "sal": 0}, {"pr": 66, "or": 225, "player": "Jaylen Wright", "team": "MIA", "sal": 0}, {"pr": 67, "or": 226, "player": "Ollie Gordon II", "team": "MIA", "sal": 0}, {"pr": 68, "or": 239, "player": "Adam Randall", "team": "BAL", "sal": 0}, {"pr": 69, "or": 240, "player": "Samaje Perine", "team": "CIN", "sal": 0}, {"pr": 70, "or": 241, "player": "LeQuint Allen", "team": "JAC", "sal": 0}, {"pr": 71, "or": 242, "player": "MarShawn Lloyd", "team": "GB", "sal": 0}, {"pr": 72, "or": 243, "player": "Jaydon Blue", "team": "DAL", "sal": 0}, {"pr": 73, "or": 244, "player": "George Holani", "team": "SEA", "sal": 0}, {"pr": 74, "or": 245, "player": "Ty Johnson", "team": "BUF", "sal": 0}, {"pr": 75, "or": 246, "player": "Emari Demercado", "team": "KC", "sal": 0}, {"pr": 76, "or": 247, "player": "Isaiah Davis", "team": "NYJ", "sal": 0}, {"pr": 77, "or": 248, "player": "Emmett Johnson", "team": "KC", "sal": 0}, {"pr": 78, "or": 249, "player": "Chris Brooks", "team": "GB", "sal": 0}, {"pr": 79, "or": 250, "player": "Sean Tucker", "team": "TB", "sal": 0}, {"pr": 80, "or": 251, "player": "DJ Giddens", "team": "IND", "sal": 0}, {"pr": 81, "or": 265, "player": "Malik Davis", "team": "DAL", "sal": 0}, {"pr": 82, "or": 266, "player": "Emanuel Wilson", "team": "SEA", "sal": 0}, {"pr": 83, "or": 276, "player": "Will Shipley", "team": "PHI", "sal": 0}, {"pr": 84, "or": 277, "player": "Devin Singletary", "team": "NYG", "sal": 0}, {"pr": 85, "or": 278, "player": "Tyler Badie", "team": "DEN", "sal": 0}],
+  wr:  [{"pr": 1, "or": 3, "player": "Puka Nacua", "team": "LAR", "sal": 56}, {"pr": 2, "or": 4, "player": "Ja'Marr Chase", "team": "CIN", "sal": 55}, {"pr": 3, "or": 5, "player": "Jaxon Smith-Njigba", "team": "SEA", "sal": 54}, {"pr": 4, "or": 8, "player": "Amon-Ra St. Brown", "team": "DET", "sal": 52}, {"pr": 5, "or": 9, "player": "CeeDee Lamb", "team": "DAL", "sal": 51}, {"pr": 6, "or": 11, "player": "Justin Jefferson", "team": "MIN", "sal": 48}, {"pr": 7, "or": 14, "player": "Drake London", "team": "ATL", "sal": 43}, {"pr": 8, "or": 16, "player": "Rashee Rice", "team": "KC", "sal": 40}, {"pr": 9, "or": 25, "player": "Nico Collins", "team": "HOU", "sal": 31}, {"pr": 10, "or": 26, "player": "Garrett Wilson", "team": "NYJ", "sal": 30}, {"pr": 11, "or": 27, "player": "A.J. Brown", "team": "NE", "sal": 30}, {"pr": 12, "or": 28, "player": "Chris Olave", "team": "NO", "sal": 29}, {"pr": 13, "or": 29, "player": "George Pickens", "team": "DAL", "sal": 28}, {"pr": 14, "or": 32, "player": "Malik Nabers", "team": "NYG", "sal": 25}, {"pr": 15, "or": 33, "player": "Tetairoa McMillan", "team": "CAR", "sal": 24}, {"pr": 16, "or": 34, "player": "Zay Flowers", "team": "BAL", "sal": 23}, {"pr": 17, "or": 35, "player": "DeVonta Smith", "team": "PHI", "sal": 22}, {"pr": 18, "or": 42, "player": "Emeka Egbuka", "team": "TB", "sal": 19}, {"pr": 19, "or": 43, "player": "Davante Adams", "team": "LAR", "sal": 18}, {"pr": 20, "or": 44, "player": "Ladd McConkey", "team": "LAC", "sal": 17}, {"pr": 21, "or": 45, "player": "Terry McLaurin", "team": "WAS", "sal": 17}, {"pr": 22, "or": 46, "player": "Tee Higgins", "team": "CIN", "sal": 15}, {"pr": 23, "or": 47, "player": "Jaylen Waddle", "team": "DEN", "sal": 15}, {"pr": 24, "or": 48, "player": "Jameson Williams", "team": "DET", "sal": 14}, {"pr": 25, "or": 51, "player": "Carnell Tate", "team": "TEN", "sal": 12}, {"pr": 26, "or": 52, "player": "Rome Odunze", "team": "CHI", "sal": 11}, {"pr": 27, "or": 53, "player": "Luther Burden III", "team": "CHI", "sal": 11}, {"pr": 28, "or": 54, "player": "DJ Moore", "team": "BUF", "sal": 10}, {"pr": 29, "or": 65, "player": "Courtland Sutton", "team": "DEN", "sal": 7}, {"pr": 30, "or": 66, "player": "Michael Pittman Jr.", "team": "PIT", "sal": 7}, {"pr": 31, "or": 67, "player": "Alec Pierce", "team": "IND", "sal": 7}, {"pr": 32, "or": 68, "player": "Marvin Harrison Jr.", "team": "ARI", "sal": 6}, {"pr": 33, "or": 69, "player": "DK Metcalf", "team": "PIT", "sal": 6}, {"pr": 34, "or": 70, "player": "Jordyn Tyson", "team": "NO", "sal": 6}, {"pr": 35, "or": 76, "player": "Mike Evans", "team": "SF", "sal": 5}, {"pr": 36, "or": 77, "player": "Parker Washington", "team": "JAC", "sal": 5}, {"pr": 37, "or": 78, "player": "Christian Watson", "team": "GB", "sal": 4}, {"pr": 38, "or": 79, "player": "Matthew Golden", "team": "GB", "sal": 4}, {"pr": 39, "or": 80, "player": "Michael Wilson", "team": "ARI", "sal": 4}, {"pr": 40, "or": 81, "player": "Brian Thomas Jr.", "team": "JAC", "sal": 4}, {"pr": 41, "or": 88, "player": "Jakobi Meyers", "team": "JAC", "sal": 3}, {"pr": 42, "or": 89, "player": "Wan'Dale Robinson", "team": "TEN", "sal": 3}, {"pr": 43, "or": 90, "player": "Makai Lemon", "team": "PHI", "sal": 3}, {"pr": 44, "or": 91, "player": "Josh Downs", "team": "IND", "sal": 3}, {"pr": 45, "or": 92, "player": "Jordan Addison", "team": "MIN", "sal": 3}, {"pr": 46, "or": 112, "player": "Khalil Shakir", "team": "BUF", "sal": 2}, {"pr": 47, "or": 113, "player": "Jayden Reed", "team": "GB", "sal": 2}, {"pr": 48, "or": 114, "player": "Xavier Worthy", "team": "KC", "sal": 2}, {"pr": 49, "or": 124, "player": "Quentin Johnston", "team": "LAC", "sal": 1}, {"pr": 50, "or": 125, "player": "KC Concepcion", "team": "CLE", "sal": 1}, {"pr": 51, "or": 126, "player": "Deebo Samuel Sr.", "team": "SF", "sal": 1}, {"pr": 52, "or": 127, "player": "Stefon Diggs", "team": "WAS", "sal": 1}, {"pr": 53, "or": 128, "player": "Chris Godwin Jr.", "team": "TB", "sal": 1}, {"pr": 54, "or": 129, "player": "Romeo Doubs", "team": "NE", "sal": 1}, {"pr": 55, "or": 130, "player": "Jayden Higgins", "team": "HOU", "sal": 1}, {"pr": 56, "or": 131, "player": "Jalen Coker", "team": "CAR", "sal": 1}, {"pr": 57, "or": 132, "player": "Jerry Jeudy", "team": "CLE", "sal": 1}, {"pr": 58, "or": 143, "player": "Rashid Shaheed", "team": "SEA", "sal": 1}, {"pr": 59, "or": 144, "player": "Jalen McMillan", "team": "TB", "sal": 1}, {"pr": 60, "or": 145, "player": "Calvin Ridley", "team": "TEN", "sal": 1}, {"pr": 61, "or": 146, "player": "Denzel Boston", "team": "CLE", "sal": 1}, {"pr": 62, "or": 147, "player": "Travis Hunter", "team": "JAC", "sal": 1}, {"pr": 63, "or": 148, "player": "Adonai Mitchell", "team": "NYJ", "sal": 1}, {"pr": 64, "or": 151, "player": "De'Zhaun Stribling", "team": "SF", "sal": 1}, {"pr": 65, "or": 152, "player": "Germie Bernard", "team": "PIT", "sal": 1}, {"pr": 66, "or": 153, "player": "Tre Tucker", "team": "LV", "sal": 1}, {"pr": 67, "or": 161, "player": "Jalen Nailor", "team": "LV", "sal": 0}, {"pr": 68, "or": 162, "player": "Omar Cooper Jr.", "team": "NYJ", "sal": 0}, {"pr": 69, "or": 163, "player": "Rashod Bateman", "team": "BAL", "sal": 0}, {"pr": 70, "or": 164, "player": "Jauan Jennings", "team": "MIN", "sal": 0}, {"pr": 71, "or": 165, "player": "Tank Dell", "team": "HOU", "sal": 0}, {"pr": 72, "or": 197, "player": "Zachariah Branch", "team": "ATL", "sal": 0}, {"pr": 73, "or": 201, "player": "Darnell Mooney", "team": "NYG", "sal": 0}, {"pr": 74, "or": 202, "player": "Tre Harris", "team": "LAC", "sal": 0}, {"pr": 75, "or": 203, "player": "Ryan Flournoy", "team": "DAL", "sal": 0}, {"pr": 76, "or": 204, "player": "Antonio Williams", "team": "WAS", "sal": 0}, {"pr": 77, "or": 205, "player": "Jaylin Noel", "team": "HOU", "sal": 0}, {"pr": 78, "or": 208, "player": "Xavier Legette", "team": "CAR", "sal": 0}, {"pr": 79, "or": 209, "player": "Jack Bech", "team": "LV", "sal": 0}, {"pr": 80, "or": 210, "player": "Isaac TeSlaa", "team": "DET", "sal": 0}, {"pr": 81, "or": 211, "player": "Chris Bell", "team": "MIA", "sal": 0}, {"pr": 82, "or": 224, "player": "Malik Washington", "team": "MIA", "sal": 0}, {"pr": 83, "or": 227, "player": "Jalen Tolbert", "team": "MIA", "sal": 0}, {"pr": 84, "or": 228, "player": "Cooper Kupp", "team": "SEA", "sal": 0}, {"pr": 85, "or": 229, "player": "Caleb Douglas", "team": "MIA", "sal": 0}, {"pr": 86, "or": 230, "player": "Kayshon Boutte", "team": "NE", "sal": 0}, {"pr": 87, "or": 231, "player": "Brandon Aiyuk", "team": "SF", "sal": 0}, {"pr": 88, "or": 232, "player": "Ja'Kobi Lane", "team": "BAL", "sal": 0}, {"pr": 89, "or": 233, "player": "Ted Hurst", "team": "TB", "sal": 0}, {"pr": 90, "or": 234, "player": "Keon Coleman", "team": "BUF", "sal": 0}],
+  te:  [{"pr": 1, "or": 17, "player": "Trey McBride", "team": "ARI", "sal": 38}, {"pr": 2, "or": 24, "player": "Brock Bowers", "team": "LV", "sal": 32}, {"pr": 3, "or": 49, "player": "Colston Loveland", "team": "CHI", "sal": 13}, {"pr": 4, "or": 50, "player": "Tyler Warren", "team": "IND", "sal": 13}, {"pr": 5, "or": 71, "player": "Kyle Pitts Sr.", "team": "ATL", "sal": 6}, {"pr": 6, "or": 72, "player": "Harold Fannin Jr.", "team": "CLE", "sal": 6}, {"pr": 7, "or": 73, "player": "Sam LaPorta", "team": "DET", "sal": 6}, {"pr": 8, "or": 101, "player": "George Kittle", "team": "SF", "sal": 2}, {"pr": 9, "or": 102, "player": "Tucker Kraft", "team": "GB", "sal": 2}, {"pr": 10, "or": 103, "player": "Dallas Goedert", "team": "PHI", "sal": 2}, {"pr": 11, "or": 104, "player": "Travis Kelce", "team": "KC", "sal": 2}, {"pr": 12, "or": 109, "player": "Jake Ferguson", "team": "DAL", "sal": 2}, {"pr": 13, "or": 110, "player": "Mark Andrews", "team": "BAL", "sal": 2}, {"pr": 14, "or": 111, "player": "T.J. Hockenson", "team": "MIN", "sal": 2}, {"pr": 15, "or": 116, "player": "Kenyon Sadiq", "team": "NYJ", "sal": 2}, {"pr": 16, "or": 117, "player": "Isaiah Likely", "team": "NYG", "sal": 2}, {"pr": 17, "or": 118, "player": "Dalton Kincaid", "team": "BUF", "sal": 2}, {"pr": 18, "or": 119, "player": "Hunter Henry", "team": "NE", "sal": 2}, {"pr": 19, "or": 159, "player": "Terrance Ferguson", "team": "LAR", "sal": 1}, {"pr": 20, "or": 160, "player": "Juwan Johnson", "team": "NO", "sal": 1}, {"pr": 21, "or": 194, "player": "Brenton Strange", "team": "JAC", "sal": 0}, {"pr": 22, "or": 206, "player": "Pat Freiermuth", "team": "PIT", "sal": 0}, {"pr": 23, "or": 207, "player": "Dalton Schultz", "team": "HOU", "sal": 0}, {"pr": 24, "or": 215, "player": "Gunnar Helm", "team": "TEN", "sal": 0}, {"pr": 25, "or": 216, "player": "Chig Okonkwo", "team": "WAS", "sal": 0}, {"pr": 26, "or": 217, "player": "AJ Barner", "team": "SEA", "sal": 0}, {"pr": 27, "or": 258, "player": "Oronde Gadsden", "team": "LAC", "sal": 0}, {"pr": 28, "or": 259, "player": "Greg Dulcich", "team": "MIA", "sal": 0}, {"pr": 29, "or": 260, "player": "Cade Otton", "team": "TB", "sal": 0}, {"pr": 30, "or": 289, "player": "Mike Gesicki", "team": "CIN", "sal": 0}, {"pr": 31, "or": 290, "player": "Evan Engram", "team": "DEN", "sal": 0}, {"pr": 32, "or": 291, "player": "David Njoku", "team": "LAC", "sal": 0}, {"pr": 33, "or": 292, "player": "Michael Mayer", "team": "LV", "sal": 0}, {"pr": 34, "or": 293, "player": "Jake Tonges", "team": "SF", "sal": 0}, {"pr": 35, "or": 311, "player": "Ja'Tavion Sanders", "team": "CAR", "sal": 0}],
+  dst: [{"pr": 1, "or": 169, "player": "Broncos D/ST", "team": "DEN", "sal": 1}, {"pr": 2, "or": 170, "player": "Texans D/ST", "team": "HOU", "sal": 1}, {"pr": 3, "or": 171, "player": "Steelers D/ST", "team": "PIT", "sal": 1}, {"pr": 4, "or": 172, "player": "Seahawks D/ST", "team": "SEA", "sal": 1}, {"pr": 5, "or": 173, "player": "Rams D/ST", "team": "LAR", "sal": 1}, {"pr": 6, "or": 174, "player": "Ravens D/ST", "team": "BAL", "sal": 1}, {"pr": 7, "or": 175, "player": "Eagles D/ST", "team": "PHI", "sal": 1}, {"pr": 8, "or": 176, "player": "Browns D/ST", "team": "CLE", "sal": 1}, {"pr": 9, "or": 177, "player": "Patriots D/ST", "team": "NE", "sal": 1}, {"pr": 10, "or": 178, "player": "Lions D/ST", "team": "DET", "sal": 1}, {"pr": 11, "or": 179, "player": "Chiefs D/ST", "team": "KC", "sal": 0}, {"pr": 12, "or": 180, "player": "Chargers D/ST", "team": "LAC", "sal": 0}, {"pr": 13, "or": 235, "player": "Buccaneers D/ST", "team": "TB", "sal": 0}, {"pr": 14, "or": 236, "player": "Packers D/ST", "team": "GB", "sal": 0}, {"pr": 15, "or": 254, "player": "Jaguars D/ST", "team": "JAC", "sal": 0}],
+  k:   [{"pr": 1, "or": 181, "player": "Brandon Aubrey", "team": "DAL", "sal": 1}, {"pr": 2, "or": 182, "player": "Cameron Dicker", "team": "LAC", "sal": 1}, {"pr": 3, "or": 183, "player": "Jason Myers", "team": "SEA", "sal": 1}, {"pr": 4, "or": 184, "player": "Harrison Mevis", "team": "LAR", "sal": 1}, {"pr": 5, "or": 185, "player": "Ka'imi Fairbairn", "team": "HOU", "sal": 1}, {"pr": 6, "or": 186, "player": "Eddy Pineiro", "team": "SF", "sal": 1}, {"pr": 7, "or": 187, "player": "Harrison Butker", "team": "KC", "sal": 1}, {"pr": 8, "or": 188, "player": "Cam Little", "team": "JAC", "sal": 1}, {"pr": 9, "or": 189, "player": "Jake Bates", "team": "DET", "sal": 1}, {"pr": 10, "or": 190, "player": "Tyler Loop", "team": "BAL", "sal": 1}, {"pr": 11, "or": 191, "player": "Cairo Santos", "team": "CHI", "sal": 0}, {"pr": 12, "or": 192, "player": "Will Reichard", "team": "MIN", "sal": 0}, {"pr": 13, "or": 237, "player": "Chris Boswell", "team": "PIT", "sal": 0}, {"pr": 14, "or": 238, "player": "Chase McLaughlin", "team": "TB", "sal": 0}, {"pr": 15, "or": 256, "player": "Evan McPherson", "team": "CIN", "sal": 0}]
+};
+
+// ── Draft helpers ────────────────────────────────────────────
+function draftKey(r,c){ return 'draft2026_r'+r+'_c'+c; }
+
+function getDraftedSet(){
+  var s=new Set();
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    for(var c=1;c<=10;c++){
+      var cell=document.getElementById('pick-'+r+'-'+c);
+      if(cell){ var wrap=cell.querySelector('.pick-cell-wrap'); var nameEl=wrap?wrap.querySelector('div'):null; var v=nameEl?nameEl.textContent.trim():''; if(v) s.add(v.toLowerCase()); }
+    }
+  }
+  return s;
+}
+
+function updateRankingsStrikes(){
+  var drafted=getDraftedSet();
+  document.querySelectorAll('#rankings-table tbody tr').forEach(function(row){
+    var tds=row.querySelectorAll('td');
+    if(!tds.length) return;
+    // Overall tab: Rank | Player | Pos | Team  → player at tds[1]
+    // Position tabs: Rank | Overall | Player | Team → player at tds[2]
+    // Bye tab: Week | Teams → skip
+    var nameCell=null;
+    if(tds.length===4) nameCell=tds[2];       // position tabs (Rank, Overall, Player, Team)
+    else if(tds.length===3) nameCell=tds[1];  // overall tab (Rank, Player, Pos+Team merged? no)
+    else if(tds.length===4) nameCell=tds[1];  // shouldn't hit but safety
+    // Actually overall has 4 cols too: Rank | Player | Pos | Team
+    // Differentiate by checking if tds[1] looks like a number (Overall rank) or a name
+    if(tds.length===4){
+      var t1=tds[1].textContent.trim();
+      var isNum=!isNaN(parseInt(t1)) && t1.length<=4;
+      nameCell=isNum?tds[2]:tds[1];
+    }
+    if(!nameCell) return;
+    var txt=nameCell.textContent.trim().toLowerCase();
+    if(drafted.has(txt)){
+      row.style.opacity='0.35';
+      nameCell.style.textDecoration='line-through';
+    } else {
+      row.style.opacity='';
+      nameCell.style.textDecoration='';
+    }
+  });
+}
+
+// ── Pick cell renderer ───────────────────────────────────────
+var PICK_POS_BG  = {QB:'rgba(59,130,246,0.18)',RB:'rgba(34,197,94,0.18)',WR:'rgba(245,158,11,0.18)',TE:'rgba(139,92,246,0.18)',DST:'rgba(239,68,68,0.18)',K:'rgba(156,163,175,0.18)'};
+var PICK_POS_COL = {QB:'#3b82f6',RB:'#22c55e',WR:'#f59e0b',TE:'#8b5cf6',DST:'#ef4444',K:'#9ca3af'};
+
+function renderPickCell(cell, name, pos, team){
+  var wrap=cell.querySelector('.pick-cell-wrap');
+  if(!wrap) return;
+  // Determine row parity for checkered bg (odd/even round)
+  var row=cell.closest('tr');
+  var rowIdx=row?[].indexOf.call(row.parentNode.children,row):0;
+  var isOdd=rowIdx%2===0;
+
+  if(!name){
+    wrap.innerHTML='<div style="color:rgba(255,255,255,0.08);font-size:10px;text-align:center;padding:6px 0;user-select:none">+</div>';
+    cell.style.background=isOdd?'rgba(255,255,255,0.025)':'rgba(0,0,0,0.15)';
+    cell.style.borderLeft='2px solid transparent';
+    cell.style.boxShadow='';
+    return;
+  }
+  var pc=PICK_POS_COL[pos]||'#f9fafb';
+  var bg=PICK_POS_BG[pos]||'rgba(255,255,255,0.06)';
+  cell.style.background=bg;
+  cell.style.borderLeft='2px solid '+pc;
+  cell.style.boxShadow='inset 0 0 0 1px rgba(255,255,255,0.06)';
+  wrap.innerHTML=
+    '<div style="font-size:11px;font-weight:700;color:#f9fafb;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:105px;margin-bottom:3px">'+name+'</div>'
+    +'<div style="display:flex;align-items:center;gap:4px;flex-wrap:nowrap">'
+    +(pos?'<span style="font-size:9px;font-weight:800;color:'+pc+';background:'+pc+'20;border-radius:4px;padding:1px 4px;letter-spacing:.5px;flex-shrink:0">'+pos+'</span>':'')
+    +(team?'<span style="font-size:9px;color:#6b7280;flex-shrink:0">'+team+'</span>':'')
+    +'</div>';
+}
+
+function pickDataKey(r,c){ return 'draft2026_data_r'+r+'_c'+c; }
+
+function loadDraft(){
+  var playerMap={};
+  (RANKINGS.overall||[]).forEach(function(p){ playerMap[p.player.toLowerCase()]={pos:p.pos,team:p.team}; });
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    for(var c=1;c<=10;c++){
+      var cell=document.getElementById('pick-'+r+'-'+c);
+      if(!cell) continue;
+      // Try new format first (name|pos|team), fallback to old plain name
+      var saved=localStorage.getItem(pickDataKey(r,c));
+      if(saved){
+        var parts=saved.split('|');
+        renderPickCell(cell,parts[0],parts[1],parts[2]);
+      } else {
+        var oldName=localStorage.getItem(draftKey(r,c));
+        if(oldName){
+          var info=playerMap[oldName.toLowerCase()]||{pos:'',team:''};
+          renderPickCell(cell,oldName,info.pos,info.team);
+        }
+      }
+    }
+  }
+}
+
+// ── Autocomplete ─────────────────────────────────────────────
+function getPlayerList(){
+  var seen=new Set(), list=[];
+  (RANKINGS.overall||[]).forEach(function(p){
+    if(!seen.has(p.player)){ seen.add(p.player); list.push({name:p.player,pos:p.pos,team:p.team}); }
+  });
+  return list;
+}
+
+function closeAutocomplete(){
+  var pop=document.getElementById('ac-popup'); if(pop) pop.remove();
+  var inp=document.getElementById('ac-input');
+  if(inp){
+    var td=inp.closest('td');
+    if(td){ var nd=td.querySelector('.pick-cell-wrap'); if(nd) nd.style.display=''; }
+    inp.remove();
+  }
+}
+
+function togglePick(cell){
+  if(cell.querySelector('#ac-input')) return;
+  closeAutocomplete();
+  var nameDiv=cell.querySelector('.pick-cell-wrap');
+  var nameEl=nameDiv?nameDiv.querySelector('div'):null;
+  var current=nameEl?nameEl.textContent.trim():'';
+
+  var input=document.createElement('input');
+  input.id='ac-input';
+  input.value=current;
+  input.placeholder='Search player...';
+  input.autocomplete='off';
+  input.style.cssText='width:100%;background:#374151;border:1px solid #22c55e;border-radius:4px;color:#f9fafb;font-size:12px;padding:4px 6px;text-align:left;outline:none;font-family:Inter,sans-serif;box-sizing:border-box;';
+  nameDiv.style.display='none';
+  cell.style.background='';
+  cell.appendChild(input);
+  input.focus();
+  if(current) input.select();
+
+  var playerList=getPlayerList();
+
+  function buildDropdown(query){
+    var pop=document.getElementById('ac-popup'); if(pop) pop.remove();
+    if(!query) return;
+    var q=query.toLowerCase();
+    var drafted=getDraftedSet();
+    drafted.delete(current.toLowerCase());
+    var matches=playerList.filter(function(p){ return p.name.toLowerCase().indexOf(q)!==-1; }).slice(0,10);
+    if(!matches.length) return;
+
+    var popup=document.createElement('div');
+    popup.id='ac-popup';
+    popup.style.cssText='position:fixed;background:#1f2937;border:1px solid rgba(34,197,94,0.5);border-radius:8px;z-index:9999;min-width:250px;max-height:300px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.6);';
+    var rect=input.getBoundingClientRect();
+    popup.style.left=Math.min(rect.left,window.innerWidth-270)+'px';
+    popup.style.top=(rect.bottom+4)+'px';
+
+    matches.forEach(function(p){
+      var isDrafted=drafted.has(p.name.toLowerCase());
+      var item=document.createElement('div');
+      var pc=POS_COLOR[p.pos]||'#9ca3af';
+      item.style.cssText='padding:9px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.07);font-family:Inter,sans-serif;'+(isDrafted?'opacity:0.4;cursor:not-allowed;':'cursor:pointer;');
+      var badge='<span style="font-size:10px;font-weight:700;color:'+pc+';background:'+pc+'22;border:1px solid '+pc+'44;padding:1px 6px;border-radius:8px;flex-shrink:0">'+p.pos+'</span>';
+      var nameSpan='<span style="font-size:13px;color:#f9fafb;font-weight:500;flex:1'+(isDrafted?';text-decoration:line-through':'')+'" class="ac-name">'+p.name+'</span>';
+      var right=isDrafted?'<span style="font-size:10px;color:#ef4444;font-weight:600">DRAFTED</span>':'<span style="font-size:11px;color:#6b7280">'+p.team+'</span>';
+      item.innerHTML=badge+nameSpan+right;
+      if(!isDrafted){
+        (function(pp){ 
+          item.addEventListener('mousedown',function(e){ e.preventDefault(); savePick(cell,nameDiv,pp.name,pp.pos,pp.team); });
+          item.addEventListener('touchstart',function(e){ e.preventDefault(); savePick(cell,nameDiv,pp.name,pp.pos,pp.team); },{passive:false});
+        })(p);
+        item.addEventListener('mouseover',function(){ item.style.background='rgba(34,197,94,0.12)'; });
+        item.addEventListener('mouseout',function(){ item.style.background=''; });
+      }
+      popup.appendChild(item);
+    });
+    document.body.appendChild(popup);
+  }
+
+  function savePick(cell,nameDiv,val,pos,team){
+    var v=(val||'').trim();
+    if(v){
+      var drafted=getDraftedSet();
+      drafted.delete(current.toLowerCase());
+      if(drafted.has(v.toLowerCase())){
+        input.style.borderColor='#ef4444';
+        setTimeout(function(){ input.style.borderColor='#22c55e'; },800);
+        return;
+      }
+    }
+    // Look up pos/team if not provided
+    if(v && !pos){
+      var pl=playerList.find(function(p){ return p.name.toLowerCase()===v.toLowerCase(); });
+      if(pl){ pos=pl.pos; team=pl.team; }
+    }
+    nameDiv.style.display='';
+    var pop=document.getElementById('ac-popup'); if(pop) pop.remove();
+    var inp=document.getElementById('ac-input'); if(inp) inp.remove();
+    var idParts=cell.id.split('-');
+    if(v){
+      localStorage.setItem(draftKey(idParts[1],idParts[2]),v);
+      localStorage.setItem(pickDataKey(idParts[1],idParts[2]),v+'|'+(pos||'')+'|'+(team||''));
+    } else {
+      localStorage.removeItem(draftKey(idParts[1],idParts[2]));
+      localStorage.removeItem(pickDataKey(idParts[1],idParts[2]));
+    }
+    renderPickCell(cell,v,pos||'',team||'');
+    setTimeout(updateRankingsStrikes,10);
+  }
+
+  input.addEventListener('input',function(){ buildDropdown(input.value); });
+  buildDropdown(input.value);
+
+  input.addEventListener('keydown',function(e){
+    var pop=document.getElementById('ac-popup');
+    if(e.key==='Enter'){
+      var firstItem=pop?[].slice.call(pop.querySelectorAll('div')).find(function(d){ return d.style.cursor!=='not-allowed'; }):null;
+      if(firstItem){
+        var nm=firstItem.querySelector('.ac-name');
+        var matched=nm?playerList.find(function(p){ return p.name===nm.textContent; }):null;
+        savePick(cell,nameDiv,nm?nm.textContent:'',matched?matched.pos:'',matched?matched.team:'');
+      } else { savePick(cell,nameDiv,input.value); }
+    }
+    if(e.key==='Escape') closeAutocomplete();
+  });
+
+  input.addEventListener('blur',function(){
+    setTimeout(function(){
+      var pop=document.getElementById('ac-popup');
+      if(pop && pop.matches(':hover')) return;
+      savePick(cell,nameDiv,input.value,null,null);
+    },200);
+  });
+
+  document.addEventListener('click',function onOut(e){
+    if(!cell.contains(e.target)&&!(document.getElementById('ac-popup')&&document.getElementById('ac-popup').contains(e.target))){
+      closeAutocomplete(); document.removeEventListener('click',onOut);
+    }
+  });
+}
+
+function clearDraft(){
+  if(!confirm('Clear all draft picks?')) return;
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    for(var c=1;c<=10;c++){
+      localStorage.removeItem(draftKey(r,c));
+      localStorage.removeItem(pickDataKey(r,c));
+      var cell=document.getElementById('pick-'+r+'-'+c);
+      if(cell) renderPickCell(cell,'','','');
+    }
+  }
+  updateRankingsStrikes();
+}
+
+function exportDraft(){
+  var out='2026 WEEKEND WARRIORS DRAFT\n'+'='.repeat(40)+'\n';
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    out+='\nRound '+r+':\n';
+    for(var c=1;c<=10;c++){
+      var ci=(r%2===1)?c:11-c;
+      var cell=document.getElementById('pick-'+r+'-'+ci);
+      var wrap=cell?cell.querySelector('.pick-cell-wrap'):null; var nameEl=wrap?wrap.querySelector('div'):null; var pname=nameEl?nameEl.textContent.trim():'';
+      if(pname) out+='  '+DRAFT_MANAGERS[ci-1]+': '+pname+'\n';
+    }
+  }
+  var outDiv=document.getElementById('draft-export-out');
+  outDiv.textContent=out;
+  outDiv.style.display='block';
+}
+
+function getDraftData(){
+  var rows=[];
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    var row=[];
+    for(var c=1;c<=10;c++){
+      var cell=document.getElementById('pick-'+r+'-'+c);
+      var wrap=cell?cell.querySelector('.pick-cell-wrap'):null;
+      var nameEl=wrap?wrap.querySelector('div'):null;
+      var name=nameEl?nameEl.textContent.trim():'';
+      var pos='',team='';
+      if(name){
+        var found=(RANKINGS.overall||[]).find(function(p){ return p.player.toLowerCase()===name.toLowerCase(); });
+        if(found){ pos=found.pos; team=found.team; }
+      }
+      row.push({name:name,pos:pos,team:team});
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+function exportExcel(){
+  var data=getDraftData();
+  var lines=['Round,'+DRAFT_MANAGERS.join(',')];
+  for(var r=0;r<data.length;r++){
+    var cells=['Round '+(r+1)];
+    for(var c=0;c<10;c++){
+      var pick=data[r][c];
+      var val=pick.name||'';
+      if(pick.pos) val+=' ('+pick.pos+(pick.team?' '+pick.team:'')+')';
+      // CSV escape: wrap in quotes if contains comma or quote
+      if(val.indexOf(',')!==-1||val.indexOf('"')!==-1){
+        val='"'+val.split('"').join('""')+'"';
+      }
+      cells.push(val);
+    }
+    lines.push(cells.join(','));
+  }
+  var csv=lines.join('\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='WeekendWarriors_2026_Draft.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportPDF(){
+  var data=getDraftData();
+  var posColors={QB:'#3b82f6',RB:'#16a34a',WR:'#d97706',TE:'#7c3aed',DST:'#dc2626',K:'#6b7280'};
+  var css=[
+    'body{font-family:Arial,sans-serif;margin:0;padding:10px;background:#fff;color:#111;}',
+    'h1{font-size:17px;text-align:center;margin-bottom:2px;letter-spacing:1px;}',
+    'p{text-align:center;font-size:10px;color:#666;margin:0 0 10px;}',
+    'table{width:100%;border-collapse:collapse;font-size:8px;}',
+    'th{background:#1a1a2e;color:#fff;padding:5px 3px;text-align:center;font-size:9px;border:1px solid #333;}',
+    'td{padding:4px 3px;border:1px solid #ddd;vertical-align:top;min-width:65px;}',
+    '.rnd{background:#f0f0f0;font-weight:700;text-align:center;color:#333;font-size:10px;width:34px;}',
+    '.pn{font-weight:700;font-size:8px;color:#111;display:block;line-height:1.3;}',
+    '.ps{font-size:7px;display:block;margin-top:1px;}',
+    'tr:nth-child(even) td:not(.rnd){background:#f9f9f9;}',
+    '@page{margin:6mm;size:landscape;}',
+    '@media print{body{padding:0;}}'
+  ].join('');
+
+  var headers='<tr><th>RND</th>';
+  DRAFT_MANAGERS.forEach(function(m){ headers+='<th>'+m+'</th>'; });
+  headers+='</tr>';
+
+  var body='';
+  for(var r=0;r<data.length;r++){
+    body+='<tr><td class="rnd">R'+(r+1)+'</td>';
+    for(var c=0;c<10;c++){
+      var pick=data[r][c];
+      var pc=pick.pos?(posColors[pick.pos]||'#555'):'#ccc';
+      var rowBg=r%2===0?'#fff':'#f9f9f9';
+      if(pick.name){
+        var sub=pick.pos||pick.team ? '<span class="ps" style="color:'+pc+'">'+pick.pos+(pick.team?' &middot; '+pick.team:'')+'</span>' : '';
+        body+='<td style="border-left:3px solid '+pc+';background:'+rowBg+'">'
+          +'<span class="pn">'+pick.name+'</span>'+sub+'</td>';
+      } else {
+        body+='<td style="background:#f4f4f4;"></td>';
+      }
+    }
+    body+='</tr>';
+  }
+
+  var fullHtml='<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'+css+'</style></head><body>'
+    +'<h1>Weekend Warriors 2026 Draft Board</h1>'
+    +'<p>Snake Draft &middot; August 22nd at the Lakehouse &middot; 17 Rounds</p>'
+    +'<table><thead>'+headers+'</thead><tbody>'+body+'</tbody></table>'
+    +'</body></html>';
+
+  var win=window.open('','_blank');
+  if(!win){ alert('Please allow popups to export PDF'); return; }
+  win.document.write(fullHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(function(){ win.print(); },600);
+}
+
+// ── Rankings renderer ────────────────────────────────────────
+function showRankings(type,btn){
+  document.querySelectorAll('.rtab').forEach(function(t){ t.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var el=document.getElementById('rankings-table');
+  if(!el) return;
+
+  var thStyle='background:var(--bg3);padding:12px 12px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;';
+  var thStyleL=thStyle.replace('text-align:center','text-align:left');
+
+  if(type==='overall'){
+    var h='<table style="width:100%;border-collapse:collapse;min-width:450px"><thead><tr>'
+      +'<th style="'+thStyle+'width:55px">Rank</th>'
+      +'<th style="'+thStyleL+'">Player</th>'
+      +'<th style="'+thStyle+'">Pos</th>'
+      +'<th style="'+thStyle+'">Team</th>'
+      +'</tr></thead><tbody>';
+    RANKINGS.overall.forEach(function(p,i){
+      var pc=POS_COLOR[p.pos]||'#9ca3af';
+      h+='<tr style="border-bottom:1px solid var(--border);background:'+(i%2===0?'var(--bg2)':'rgba(255,255,255,0.02)')+'">'
+        +'<td style="padding:10px 12px;text-align:center;font-size:20px;color:var(--text3)">'+p.rank+'</td>'
+        +'<td style="padding:10px 12px;font-weight:600;color:var(--text);font-size:14px">'+p.player+'</td>'
+        +'<td style="padding:10px 12px;text-align:center"><span style="background:'+pc+'22;color:'+pc+';border:1px solid '+pc+'44;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px">'+p.pos+(p.pos_rank||'')+'</span></td>'
+        +'<td style="padding:10px 12px;text-align:center;font-size:12px;color:var(--text2);font-weight:600">'+p.team+'</td></tr>';
+    });
+    el.innerHTML=h+'</tbody></table>';
+    setTimeout(updateRankingsStrikes,10);
+    return;
+  }
+
+  var rows=RANKINGS[type]||[];
+  var pc=POS_COLOR[type.toUpperCase()]||'#9ca3af';
+  var h='<table style="width:100%;border-collapse:collapse;min-width:380px"><thead><tr>'
+    +'<th style="'+thStyle+'width:60px">Rank</th>'
+    +'<th style="'+thStyle+'width:70px">Overall</th>'
+    +'<th style="'+thStyleL+'">Player</th>'
+    +'<th style="'+thStyle+'">Team</th>'
+    +'</tr></thead><tbody>';
+  rows.forEach(function(p,i){
+    h+='<tr style="border-bottom:1px solid var(--border);background:'+(i%2===0?'var(--bg2)':'rgba(255,255,255,0.02)')+'">'
+      +'<td style="padding:10px 12px;text-align:center;font-size:20px;color:'+pc+'">'+p.pr+'</td>'
+      +'<td style="padding:10px 12px;text-align:center;font-size:12px;color:var(--text3)">'+p.or+'</td>'
+      +'<td style="padding:10px 12px;font-weight:600;color:var(--text);font-size:14px">'+p.player+'</td>'
+      +'<td style="padding:10px 12px;text-align:center;font-size:12px;color:var(--text2);font-weight:600">'+p.team+'</td></tr>';
+  });
+  el.innerHTML=h+'</tbody></table>';
+  setTimeout(updateRankingsStrikes,10);
+}
+
+
 // Init
 initNote();
 buildHome();
@@ -1091,7 +2189,49 @@ buildSeasons();
 buildPlayers();
 buildRecords();
 buildH2H();
+loadDraft();
 
+// Draft countdown clock
+(function(){
+  var draftDate = new Date('2026-08-22T00:00:00');
+  function updateCountdown(){
+    var now = new Date();
+    var diff = draftDate - now;
+    var el = document.getElementById('draft-countdown');
+    if(!el) return;
+    if(diff <= 0){
+      el.textContent = '🏈';
+      el.closest('.hero-stat').querySelector('.hero-stat-label').textContent = "Draft Day!";
+      return;
+    }
+    var days = Math.floor(diff / (1000*60*60*24));
+    var hrs  = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    var mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+    var secs = Math.floor((diff % (1000*60)) / 1000);
+    if(days > 0){
+      el.textContent = days + 'd ' + hrs + 'h';
+    } else {
+      el.textContent = hrs + 'h ' + mins + 'm ' + secs + 's';
+      el.style.fontSize = '20px';
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
+// Init empty cells with checkered look
+(function(){
+  for(var r=1;r<=DRAFT_ROUNDS;r++){
+    for(var c=1;c<=10;c++){
+      var cell=document.getElementById('pick-'+r+'-'+c);
+      if(!cell) continue;
+      var wrap=cell.querySelector('.pick-cell-wrap');
+      if(wrap && !wrap.querySelector('div[style*="font-weight:700"]')){
+        renderPickCell(cell,'','','');
+      }
+    }
+  }
+})();
+showRankings("overall",null);
 </script>
 </body>
 </html>
